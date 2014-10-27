@@ -13,19 +13,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%!DatosUsuario User;%>
-
+<jsp:include page="Validaciones/ValidComun.jsp" />
 <%
-    session = request.getSession(true);
-
-    if (session.getAttribute("usuario") == null) {
-        session.setAttribute("mensaje", new String("Usted no esta logueado"));
-        response.sendRedirect("LogueoSesion");
-    }
-    Usuario oUsuario = (Usuario) session.getAttribute("usuario");
-    if (oUsuario.getNivel() != 2) {
-        session.setAttribute("mensaje", new String("Usted no es Cliente"));
-        response.sendRedirect("LogueoSesion");
-    }
+    
+    
     Hashtable TablaDetalles = (Hashtable) session.getAttribute("DetallesCompra");
 %>
 <html lang="es"><!--<![endif]--><head>              
