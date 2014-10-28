@@ -14,10 +14,12 @@
 <!DOCTYPE html>
 <%!DatosUsuario User;%>
 <jsp:include page="Validaciones/ValidComun.jsp" />
+<jsp:useBean id="usuario" scope="session" type="Modelo.Usuario" />
+<jsp:useBean id="detalles" scope="session" class="java.util.Hashtable" />
 <%
     
     
-    Hashtable TablaDetalles = (Hashtable) session.getAttribute("DetallesCompra");
+    //Hashtable TablaDetalles = (Hashtable) session.getAttribute("DetallesCompra");
 %>
 <html lang="es"><!--<![endif]--><head>              
         <script type="text/javascript">
@@ -185,7 +187,7 @@
                     + "<td>Producto</td>"
                     + "<td>Cantidad</td>"
                     + "</tr>");
-            Enumeration e = TablaDetalles.elements();
+            Enumeration e = detalles.elements();
 
             while (e.hasMoreElements()) {
                 DetalleCompra aux = new DetalleCompra();
@@ -210,25 +212,28 @@
 
         <%
             if (request.getMethod() == "POST") {
-                session = request.getSession(true);
+                
 
-                Usuario ousuario = (Usuario) session.getAttribute("usuario");
+                //Usuario ousuario = (Usuario) session.getAttribute("usuario");
                 int idCompra = 0;
+                /* 
                 try {
                     idCompra = User.TraerIdCompra();
                 } catch (Exception ex) {
 
                 }
                 idCompra++;
+                */
 
-                Hashtable TablaDetalless = (Hashtable) session.getAttribute("DetallesCompra");
-                Enumeration enu = TablaDetalles.elements();
+                //Hashtable TablaDetalless = (Hashtable) session.getAttribute("DetallesCompra");
+                Enumeration enu = detalles.elements();
 
                 float total = 0;
                 while (enu.hasMoreElements()) {
                     DetalleCompra aux = new DetalleCompra();
                     aux = (DetalleCompra) e.nextElement();
                     try {
+                        // El grabar detalle pide un objeto Producto
                         User.GrabarDetalle(aux.getIdCompra(), aux.getPrecio(), aux.getIdProd(), aux.getCantidad());
                     } catch (Exception ex) {
 
@@ -236,7 +241,8 @@
                     total = total + aux.getPrecio();
                 }
                 try {
-                    User.GrabarCompra(idCompra, ousuario.getId(), total);
+                    // El grabar compra cambio sus argumentos. No iria primero grabarCompra antes que los detalles??
+                    User.GrabarCompra(idCompra, usuario.getId(), total);
                 } catch (Exception ex) {
 
                 }
@@ -244,7 +250,7 @@
 
                 out.println("<body>");
 
-                session.setAttribute("DetallesCompra", null);
+                
                 RequestDispatcher req = request.getRequestDispatcher("Menu");
                 req.include(request, response);
                 out.println("</html>");
