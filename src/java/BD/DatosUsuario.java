@@ -224,12 +224,12 @@ public class DatosUsuario extends BBDD {
     }
     
 
-    public void GrabarDetalle( int idCom, float precio, Producto Prod, int cantidad, int piqueo) throws Exception {
+    public void GrabarDetalle( int idCom, float precio, Producto Prod, int cantidad) throws Exception {
         try
         {
             Conectar();
         
-        String sql = "insert into detallecompra ( id_compra, precio, id_producto, cantidad, estado, piqueoID) values('" + idCom + "', '" + precio + "', '" + Prod.getId() + "', " + cantidad + "," +1+"," + piqueo +")";
+        String sql = "insert into detallecompra ( id_compra, precio, id_producto, cantidad) values('" + idCom + "', '" + precio + "', '" + Prod.getId() + "', " + cantidad + ")";
         PreparedStatement sent = CrearSentencia(sql);
         Actualizar(sent);
         
@@ -315,10 +315,8 @@ public class DatosUsuario extends BBDD {
                 float prec = rows.getFloat("precio");
                 int idprod = rows.getInt("id_producto");
                 int cant = rows.getInt("cantidad");
-                Piqueo piqueo= TraerPiqueo(rows.getInt("piqueoID"));
                 DetalleCompra aux = new DetalleCompra(comp, prec, idprod, cant);
                 aux.setIdDetalle(det);
-                aux.setPiqueo(piqueo);
                 tabla.put(aux.getIdProd(), aux);
             }
             return tabla;
@@ -341,6 +339,7 @@ public class DatosUsuario extends BBDD {
             Date fecha= rows.getDate("fecha");
             int estado= rows.getInt("estado");
             piqueo= new Piqueo(idPiqueo, descripcionProducto, cantidad, fecha, estado);
+           
         }
         
         return piqueo;
@@ -362,7 +361,7 @@ public class DatosUsuario extends BBDD {
         return total;
     } 
 
-    public int TraerIdCompra() throws Exception {
+   /* public int TraerIdCompra() throws Exception {
         try {
             Conectar();
             int id = 0;
@@ -377,7 +376,7 @@ public class DatosUsuario extends BBDD {
             Desconectar();
         }
     }
-
+*/
   
 
     public int TraerIdUsuario() throws Exception {
@@ -451,6 +450,39 @@ public class DatosUsuario extends BBDD {
         } finally {
             Desconectar();
         }
+    }
+     
+    public int maxIdPiqueo() throws Exception{
+        try {
+            Conectar();
+            int id = 0;
+            String sql = "select max(id) from piqueo";
+            PreparedStatement sent = CrearSentencia(sql);
+            ResultSet rows = Consultar(sent);
+            if (rows.next()) {
+                id = rows.getInt("max(id)");
+            }
+            return id;
+
+        } finally {
+            Desconectar();
+        }
+    }
+    
+    public void grabarPiqueo(Hashtable compras){
+    
+    
+    }
+    
+    public String armaInFiltro(Hashtable listaCompras){
+        String inCondition ="(";
+        Enumeration e = listaCompras.elements();
+        while(e.hasMoreElements()){
+            Compra comp= (Compra)e.nextElement();
+            inCondition+= comp.getIdCompra() +",";
+        }
+        
+        return inCondition.substring(0,inCondition.length()-1)+")";
     }
         
  }

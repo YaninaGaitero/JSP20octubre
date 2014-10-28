@@ -15,10 +15,12 @@ import java.util.Hashtable;
  */
 public class Piqueo {
    private int idPiqueo;
-    private String descripcionProducto;
-    private int cantidad;
-    private Date fecha;
-    private int estado; //1 preparado 2 pendiente
+   private Hashtable listaCompras;
+   private String descripcionProducto;
+   private int cantidad;
+   private Date fecha;
+   private int estado; //1 preparado 2 pendiente
+
     
     public Piqueo(){}
     
@@ -71,4 +73,13 @@ public class Piqueo {
     public void setDescripcionProducto(String descripcionProducto) {
         this.descripcionProducto = descripcionProducto;
     }
+
+    public Hashtable getListaCompras() {
+        return listaCompras;
+    }
+
+    public void setListaCompras(Hashtable listaCompras) {
+        this.listaCompras = listaCompras;
+    }
+
 }

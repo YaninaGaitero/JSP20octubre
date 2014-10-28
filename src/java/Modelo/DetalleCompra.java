@@ -14,7 +14,6 @@ public class DetalleCompra {
     private float precio;
     private int idProd;
     private int cantidad;
-    private Piqueo piqueo;
    
    
      public DetalleCompra (){}
@@ -99,14 +98,6 @@ public class DetalleCompra {
      */
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
-    }
-
-    public Piqueo getPiqueo() {
-        return piqueo;
-    }
-
-    public void setPiqueo(Piqueo piqueo) {
-        this.piqueo = piqueo;
     }
     
 
