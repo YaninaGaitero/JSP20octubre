@@ -24,6 +24,7 @@
 
     }
 %></--%>
+<jsp:useBean id="usuario" class="Modelo.Usuario" scope="session" />
 <jsp:include page="Validaciones/ValidAdmin.jsp" />
 <html>
     <head> 
