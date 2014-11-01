@@ -14,15 +14,7 @@
 <!--[if IE 8 ]>    <html lang=\"en\" class=\"ie8\"> <![endif]-->         
 <!--[if (gte IE 9)|!(IE)]><!-->         
 <html lang=\"es\"><!--<![endif]--><head> 
-        <jsp:useBean id="agguser" class="Modelo.Usuario" scope="request">
-            <jsp:setProperty name="agguser" property="nombre" param="nombre"></jsp:setProperty>
-            <jsp:setProperty name="agguser" property="apellido" param="apellido"></jsp:setProperty>
-            <jsp:setProperty name="agguser" property="telefono" param="telefono"></jsp:setProperty>
-            <jsp:setProperty name="agguser" property="documento" param="documento"></jsp:setProperty>
-            <jsp:setProperty name="agguser" property="pass" param="pass"></jsp:setProperty>
-            <jsp:setProperty name="agguser" property="direccion" param="direccion"></jsp:setProperty>
-        </jsp:useBean>
-        <jsp:include page="Validaciones/ValidAdmin.jsp" />
+
         <script type=\"text/javascript\">
             function ValidaUsr()
             {

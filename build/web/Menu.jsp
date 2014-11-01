@@ -13,7 +13,7 @@
                              <!-- All Stylesheets --> 
                              <link rel="stylesheet"  href="css/All-Stylesheets.css"> 
                              <!-- Add 2 Home --> 
-                    
+                     
                              <script type="text/javascript" src="js/add2home.js" charset="utf-8"></script> 
                              <!-- Javascript File --> 
                              <script src="js/jquery.js"></script> 
@@ -53,7 +53,7 @@
                                                          <a href='VerHistorialMio.jsp'>Historial</a> 
                                                      </li> 
                                                      <li> 
-                                                         <a href='LogOut.jsp'>Salir</a> 
+                                                         <a href='LogueoSesion.jsp'>Salir</a> 
                                                      </li> 
                                                  </ul> 
                                              </li> 

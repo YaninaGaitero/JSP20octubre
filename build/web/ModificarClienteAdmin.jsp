@@ -19,14 +19,22 @@
 
 <%!private DatosAdmin User;%>
 
-<jsp:include page="Validaciones/ValidAdmin.jsp" />
+<
 
 <%
-    
+    session = request.getSession(true);
+    if (session.getAttribute("usuario") == null) {
+        session.setAttribute("mensaje", new String("Usted no esta logueado"));
+        response.sendRedirect("LogueoSesion");
+    }
 
     Usuario oUsuario = (Usuario) session.getAttribute("usuario");
 
-    
+    if (oUsuario.getNivel() != 1) {
+        session.setAttribute("mensaje", new String("Usted no es Administrador. Acceso restringido"));
+        response.sendRedirect("LogueoSesion");
+
+    }
 
     Hashtable Clientes = new Hashtable();
     try {
@@ -235,7 +243,7 @@
 
     if (request.getMethod() == "POST")
     {
-        
+        session = request.getSession(true);
         String[] BotonID = request.getParameterValues("boton");
         int idUser = Integer.parseInt(BotonID[0]);
         String nombre = request.getParameter("nombre" + idUser + "");

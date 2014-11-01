@@ -12,15 +12,22 @@
 <%@page import="BD.DatosUsuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
 <%!DatosUsuario User;%>
-<jsp:include page="Validaciones/ValidComun.jsp" />
-<jsp:useBean type="Modelo.Usuario" id="usuario" scope="session" />
+
 <%
-    
+    session = request.getSession(true);
+    if (session.getAttribute("usuario") == null) {
+        session.setAttribute("mensaje", new String("Usted no esta logueado"));
+        response.sendRedirect("LogueoSesion");
+    }
+    Usuario oUsuario = (Usuario) session.getAttribute("usuario");
+    if (oUsuario.getNivel() != 2) {
+        session.setAttribute("mensaje", new String("Usted no es Cliente"));
+        response.sendRedirect("LogueoSesion");
+
+    }
     try {
-        //Hashtable Compras = User.TraerComprasCliente(oUsuario.getId());
-        Hashtable Compras = User.TraerComprasCliente(usuario.getId());
+        Hashtable Compras = User.TraerComprasCliente(oUsuario.getId());
 
 %>
 
