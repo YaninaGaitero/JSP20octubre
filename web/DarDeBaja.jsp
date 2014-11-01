@@ -10,17 +10,24 @@
 <%@page import="Modelo.Usuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<jsp:include page="Validaciones/ValidAdmin.jsp" />
 <html>
 
     <%! DatosAdmin User;%>
 
     <%
 
-        
+        session = request.getSession(true);
+        if (session.getAttribute("usuario") == null) {
+            session.setAttribute("mensaje", new String("Usted no esta logueado"));
+            response.sendRedirect("LogueoSesion");
+        }
 
         Usuario oUsuario = (Usuario) session.getAttribute("usuario");
-        
+        if (oUsuario.getNivel() != 1) {
+            session.setAttribute("mensaje", new String("Usted no es Administrador. Acceso restringido"));
+            response.sendRedirect("LogueoSesion");
+
+        }
 
         try {
         Hashtable Clientes = new Hashtable();

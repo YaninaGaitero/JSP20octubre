@@ -3,18 +3,22 @@
     Created on : 09/10/2014, 18:49:40
     Author     : alumno
 --%>
-
 <%@page import="BD.DatosUsuario"%>
 <%@page import="Modelo.Usuario"%>
-<!DOCTYPE html>
-<!--[if lt IE 7 ]> <html lang=\"en\" class=\"ie6 ielt8\"> <![endif]--> 
-<!--[if IE 7 ]>    <html lang=\"en\" class=\"ie7 ielt8\"> <![endif]--> 
-<!--[if IE 8 ]>    <html lang=\"en\" class=\"ie8\"> <![endif]--> 
-<!--[if (gte IE 9)|!(IE)]><!--> 
+
+<jsp:useBean id="usuario" class="Modelo.Usuario" scope="session"></jsp:useBean>
+
 <%!
-    DatosUsuario User;
-    public void jspInit()
-    {
+
+           DatosUsuario User;
+%>
+<% 
+   if (request.getMethod()=="POST")
+   {
+
+       
+    
+
         try 
         {
             User = new DatosUsuario();
@@ -24,16 +28,52 @@
         {
             System.out.println(E.getMessage());
         }
-    }
-    public void jspDestroy()
-    {
-        User.Desconectar();
-    }
+
+           
+            String nomb = request.getParameter("usuario");            
+            String pass = request.getParameter("password");
+            Usuario oUsuario = User.Logueo(nomb, pass);
+            if (oUsuario != null) {
+                //session.setAttribute("usuario", oUsuario);
+                //session.setAttribute("logeado", new String("true"));
+            %>
+            <jsp:setProperty name="usuario" property="nombre" value="<%= oUsuario.getNombre() %>" />
+            <jsp:setProperty name="usuario" property="apellido" value="<%= oUsuario.getApellido() %>" />
+            <jsp:setProperty name="usuario" property="direccion" value="<%= oUsuario.getDireccion() %>" />
+            <jsp:setProperty name="usuario" property="documento" value="<%= oUsuario.getDocumento() %>" />
+            <jsp:setProperty name="usuario" property="estado" value="<%= oUsuario.getEstado() %>" />
+            <jsp:setProperty name="usuario" property="id" value="<%= oUsuario.getId() %>" />
+            <jsp:setProperty name="usuario" property="telefono" value="<%= oUsuario.getTelefono() %>" />
+            <jsp:setProperty name="usuario" property="pass" value="<%= oUsuario.getPass() %>" />
+            <jsp:setProperty name="usuario" property="nivel" value="<%= oUsuario.getNivel() %>" />
+            <%
+            
+
+                if (oUsuario.getNivel() == 1) {
+                    response.sendRedirect("MenuAdmin.jsp");
+                }
+                if (oUsuario.getNivel() == 2) {
+                    response.sendRedirect("Menu.jsp");
+                }
+            } else {
+                session.setAttribute("mensaje", new String("Usuario incorrecto"));
+                response.sendRedirect("LogueoSesion.jsp");
+            }
+         
+       
+}%>
+<!DOCTYPE html>
+<!--[if lt IE 7 ]> <html lang=\"en\" class=\"ie6 ielt8\"> <![endif]--> 
+<!--[if IE 7 ]>    <html lang=\"en\" class=\"ie7 ielt8\"> <![endif]--> 
+<!--[if IE 8 ]>    <html lang=\"en\" class=\"ie8\"> <![endif]--> 
+<!--[if (gte IE 9)|!(IE)]><!--> 
+<%!
+    
 %>
 
-<jsp:useBean id="usuario" class="Modelo.Usuario" scope="session"></jsp:useBean>
 
-<html lang="es"><!--<![endif]--><head>
+<html lang="es"><!--<![endif]-->
+    <head>
         <script type="text/javascript">
             function ValidaUsr()
             {
@@ -44,12 +84,29 @@
                     return false;
                 }
             }
+            function Validar() {
+                if (formulario.usuario.value == '')
+                {
+                    alert('El nombre de usuario no puede estar vacio');
+                    exit();
+                }
+                if (formulario.password.value == '')
+                {
+                    alert('La contraseña no puede estar vacia');
+                    exit();
+                }
+                formulario.submit();
+            }
         </script>
+         
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
         <title>FERRETERIA ANTUNEZ</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
-        <style class="firebugResetStyles" type="text/css" charset="utf-8">/* See license.txt for terms of usage */ 
+  </head>
+    <body>
+       
+    <style class="firebugResetStyles" type="text/css" charset="utf-8">/* See license.txt for terms of usage */ 
 
             .firebugResetStyles {
                 z-index: 2147483646 !important;
@@ -184,30 +241,13 @@
                 position: fixed !important;
                 pointer-events: auto !important;
             }
-        </style></head>
-    <body>
-        <br>
-        <script LANGUAJE='JavaScript 1.3'>
-            function Validar() {
-                if (formulario.usuario.value == '')
-                {
-                    alert('El nombre de usuario no puede estar vacio');
-                    exit();
-                }
-                if (formulario.password.value == '')
-                {
-                    alert('La contraseña no puede estar vacia');
-                    exit();
-                }
-                formulario.submit();
-            }
-        </script>
+        </style>   
         <%!String mensaje;%>
         <%if (session.getAttribute("mensaje") != null) {
                 mensaje = session.getAttribute("mensaje").toString();
                 out.println("<br><center>" + mensaje + "  </center><br>");
                 }%>
-    <body>
+
         <div class="container">
             <section id="content">
                 <form name ='formulario' action='LogueoSesion.jsp'  method ='POST'>
@@ -224,9 +264,6 @@
                         <a href='RegistrarUsuario'>Registrarme</a>
                     </div>
                 </form><!-- form -->
-                <div class="button">
-
-                </div><!-- button -->
             </section><!-- content -->
         </div><!-- container -->
 
@@ -235,41 +272,3 @@
 
 
 
-<% 
-   if (request.getMethod() == "POST")
-   {
-        try {
-           
-            String nomb = request.getParameter("usuario");            
-            String pass = request.getParameter("password");
-            Usuario oUsuario = User.Logueo(nomb, pass);
-            if (oUsuario != null) {
-                //session.setAttribute("usuario", oUsuario);
-                //session.setAttribute("logeado", new String("true"));
-            %>
-            <jsp:setProperty name="usuario" property="nombre" value="<%= oUsuario.getNombre() %>" />
-            <jsp:setProperty name="usuario" property="apellido" value="<%= oUsuario.getApellido() %>" />
-            <jsp:setProperty name="usuario" property="direccion" value="<%= oUsuario.getDireccion() %>" />
-            <jsp:setProperty name="usuario" property="documento" value="<%= oUsuario.getDocumento() %>" />
-            <jsp:setProperty name="usuario" property="estado" value="<%= oUsuario.getEstado() %>" />
-            <jsp:setProperty name="usuario" property="id" value="<%= oUsuario.getId() %>" />
-            <jsp:setProperty name="usuario" property="telefono" value="<%= oUsuario.getTelefono() %>" />
-            <jsp:setProperty name="usuario" property="pass" value="<%= "XXXXXXXX" %>" />
-            <jsp:setProperty name="usuario" property="nivel" value="<%= oUsuario.getNivel() %>" />
-            <%
-
-                if (oUsuario.getNivel() == 1) {
-                    response.sendRedirect("MenuAdmin.jsp");
-                }
-                if (oUsuario.getNivel() == 2) {
-                    response.sendRedirect("Menu.jsp");
-                }
-            } else {
-                session.setAttribute("mensaje", new String("Usuario incorrecto"));
-                response.sendRedirect("LogueoSesion.jsp");
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-       
-}%>

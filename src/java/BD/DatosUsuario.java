@@ -470,7 +470,12 @@ public class DatosUsuario extends BBDD {
     }
     
     public void grabarPiqueo(Hashtable compras){
-    
+    /*recorrer el resulset crear los objetos piqueo y grabarlos en la bbdd */
+        /*select sum(cantidad), descripcion
+            from detalleCompra 
+            join productos on id_producto=id
+            where id_compra in +" armaInFiltro+"
+            group by id*/
     
     }
     
@@ -487,3 +492,4 @@ public class DatosUsuario extends BBDD {
         
  }
     
+ 
