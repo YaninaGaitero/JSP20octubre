@@ -67,16 +67,16 @@
                             <a href="#"></i>General</a> 
                             <ul class="sub-items"> 
                                 <li> 
-                                    <a href='VerVentasAdmin.jsp'>Ver Ventas</a> 
+                                    <a href='VerVentasAdmin'>Ver Ventas</a> 
                                 </li> 
                                 <li> 
-                                    <a href='DarDeBaja.jsp'>Cambiar estado de Cliente</a> 
+                                    <a href='DarDeBaja'>Cambiar estado de Cliente</a> 
                                 </li> 
                                 <li> 
-                                    <a href='ModificarClienteAdmin.jsp'>Modificar Cliente</a> 
+                                    <a href='ModificarClienteAdmin'>Modificar Cliente</a> 
                                 </li> 
                                 <li> 
-                                    <a href='LogOut.jsp'>Salir</a> 
+                                    <a href='LogOut'>Salir</a> 
                                 </li> 
                             </ul> 
                         </li> 
