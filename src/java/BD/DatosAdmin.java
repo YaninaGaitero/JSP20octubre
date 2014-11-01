@@ -79,37 +79,32 @@ public class DatosAdmin extends BBDD {
             Desconectar();
         }
     }
-    
-    public String TraerUserNombre (int id) throws Exception
-    {
-         try {
-             String nombre = null;
-            Conectar();
-            String sql = "select nombre from usuarios where id = '"+id+"'";
-            PreparedStatement sent = CrearSentencia(sql);
-            ResultSet rows = Consultar(sent);
-            if (rows.next())
-            {
-                nombre = rows.getString("nombre");
-              
-            }
-              return nombre;
-         }
-         finally{
-            Desconectar();
-         }
-    }
 
-        public String TraerNombreProducto(int id)throws Exception
-    {
-        try
-        {
+    public String TraerUserNombre(int id) throws Exception {
+        try {
             String nombre = null;
             Conectar();
-            String sql = "select nombre from productos where id = '"+id+"'";
-             PreparedStatement sent = CrearSentencia(sql);
+            String sql = "select nombre from usuarios where id = '" + id + "'";
+            PreparedStatement sent = CrearSentencia(sql);
             ResultSet rows = Consultar(sent);
-             if (rows.next()) {
+            if (rows.next()) {
+                nombre = rows.getString("nombre");
+
+            }
+            return nombre;
+        } finally {
+            Desconectar();
+        }
+    }
+
+    public String TraerNombreProducto(int id) throws Exception {
+        try {
+            String nombre = null;
+            Conectar();
+            String sql = "select nombre from productos where id = '" + id + "'";
+            PreparedStatement sent = CrearSentencia(sql);
+            ResultSet rows = Consultar(sent);
+            if (rows.next()) {
                 nombre = rows.getString("nombre");
             }
             return nombre;
@@ -117,13 +112,14 @@ public class DatosAdmin extends BBDD {
         } finally {
             Desconectar();
         }
-        
+
     }
+
     public Hashtable TraerCompras() throws Exception {
+        Hashtable lista = new Hashtable();
         try {
             Conectar();
 
-            Hashtable lista = new Hashtable();
             String sql = "select * from compra";
             PreparedStatement sent = CrearSentencia(sql);
             ResultSet rows = Consultar(sent);
@@ -131,17 +127,21 @@ public class DatosAdmin extends BBDD {
                 int id_ = rows.getInt("id");
                 int iduser = rows.getInt("idUsuario");
                 Date fecha = rows.getDate("fecha");
-                float tot = rows.getFloat("total");
-                int estado= rows.getInt("estado");
-                Compra aux = new Compra(iduser, fecha,estado);
+               // float tot = rows.getFloat("total");
+                int estado = rows.getInt("estado");
+                Compra aux = new Compra(iduser, fecha, estado);
                 aux.setIdCompra(id_);
                 lista.put(aux.getIdCompra(), aux);
+
             }
-            return lista;
+
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
 
         } finally {
             Desconectar();
         }
+        return lista;
     }
 
     public void ModificarUsuario(Usuario aux) throws Exception {
@@ -207,8 +207,8 @@ public class DatosAdmin extends BBDD {
             Desconectar();
         }
     }
-    
-        public Hashtable TraerDetallesCliente(int id) throws Exception {
+
+    public Hashtable TraerDetallesCliente(int id) throws Exception {
         try {
             Conectar();
             Hashtable tabla = new Hashtable();
@@ -231,67 +231,66 @@ public class DatosAdmin extends BBDD {
         }
 
     }
+
     public Piqueo TraerPiqueo(int idPiqueo) throws Exception {
-          try
-        {
-        Conectar();
-        Piqueo piqueo=null;
-        String sql = "select * from piqueo where idPiqueo = " + idPiqueo + "";
-        PreparedStatement sent = CrearSentencia(sql);
-        ResultSet rows = Consultar(sent);
-        while (rows.next()) {
-            String descripcionProducto =rows.getString("descripcion");
-            int cantidad= rows.getInt("cantidad");
-            Date fecha= rows.getDate("fecha");
-            int estado= rows.getInt("estado");
-            int idCompra= rows.getInt("compraID");
-            piqueo= new Piqueo(idPiqueo, descripcionProducto, cantidad, fecha, estado);
-         }
-        
-        return piqueo;
-        }
-        finally
-        {
-           Desconectar();
-        }
-    }/*
-    public int traerIdDetalleByPiqueo(Piqueo p)throws Exception{
-            
-        try{
-            int idDetalle=0;
+        try {
             Conectar();
-            String sql= "select  detalleID from piqueo where piqueoID=" +p.getIdPiqueo()+ " limit 1";
+            Piqueo piqueo = null;
+            String sql = "select * from piqueo where idPiqueo = " + idPiqueo + "";
             PreparedStatement sent = CrearSentencia(sql);
             ResultSet rows = Consultar(sent);
-            while(rows.next()){
-                idDetalle=rows.getInt("detalleID");
+            while (rows.next()) {
+                String descripcionProducto = rows.getString("descripcion");
+                int cantidad = rows.getInt("cantidad");
+                Date fecha = rows.getDate("fecha");
+                int estado = rows.getInt("estado");
+                int idCompra = rows.getInt("compraID");
+                piqueo = new Piqueo(idPiqueo, descripcionProducto, cantidad, fecha, estado);
             }
-            return idDetalle;
+
+            return piqueo;
+        } finally {
+            Desconectar();
         }
-        finally
-        {
-                Desconectar();
-        }
-    }
-    public int traerIDfacturaFromIDDetalle(int detalle)throws Exception{
-       try
-        {
-        Conectar();
-        int idFC=0;
-        String sql = "select idCompra from detalleCompra where id_detalle = " + detalle + "limit 1";
-        PreparedStatement sent = CrearSentencia(sql);
-        ResultSet rows = Consultar(sent);
-        while (rows.next()) {
-            idFC= rows.getInt("idCompra");
-        }
+    }/*
+     public int traerIdDetalleByPiqueo(Piqueo p)throws Exception{
+            
+     try{
+     int idDetalle=0;
+     Conectar();
+     String sql= "select  detalleID from piqueo where piqueoID=" +p.getIdPiqueo()+ " limit 1";
+     PreparedStatement sent = CrearSentencia(sql);
+     ResultSet rows = Consultar(sent);
+     while(rows.next()){
+     idDetalle=rows.getInt("detalleID");
+     }
+     return idDetalle;
+     }
+     finally
+     {
+     Desconectar();
+     }
+     }
+     public int traerIDfacturaFromIDDetalle(int detalle)throws Exception{
+     try
+     {
+     Conectar();
+     int idFC=0;
+     String sql = "select idCompra from detalleCompra where id_detalle = " + detalle + "limit 1";
+     PreparedStatement sent = CrearSentencia(sql);
+     ResultSet rows = Consultar(sent);
+     while (rows.next()) {
+     idFC= rows.getInt("idCompra");
+     }
         
-        return idFC;
-        }
-        finally
-        {
-           Desconectar();
-        }
+     return idFC;
+     }
+     finally
+     {
+     Desconectar();
+     }
     
     
-    }*/
+     }*/
+
 }

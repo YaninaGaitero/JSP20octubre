@@ -32,7 +32,7 @@ public class Compra {
     
     
     public int getIdCompra() {
-        return idCompra;
+         return idCompra;
     }
 
     /**
