@@ -1,7 +1,7 @@
- <%-- 
-    Document   : MenuAdmin
-    Created on : 09/10/2014, 20:44:05
-    Author     : alumno
+<%-- 
+   Document   : MenuAdmin
+   Created on : 09/10/2014, 20:44:05
+   Author     : alumno
 --%>
 
 
@@ -67,13 +67,13 @@
                             <a href="#"></i>General</a> 
                             <ul class="sub-items"> 
                                 <li> 
-                                    <a href='VerVentasAdmin'>Ver Ventas</a> 
+                                    <a href='VerVentasAdmin.jsp'>Ver Ventas</a> 
                                 </li> 
                                 <li> 
-                                    <a href='DarDeBaja'>Cambiar estado de Cliente</a> 
+                                    <a href='DarDeBaja.jsp'>Cambiar estado de Cliente</a> 
                                 </li> 
                                 <li> 
-                                    <a href='ModificarClienteAdmin'>Modificar Cliente</a> 
+                                    <a href='ModificarClienteAdmin.jsp'>Modificar Cliente</a> 
                                 </li> 
                                 <li> 
                                     <a href='LogOut'>Salir</a> 

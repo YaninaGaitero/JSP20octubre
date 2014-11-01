@@ -2,7 +2,12 @@
     Document   : ModificarClienteAdmin
     Created on : 09/10/2014, 21:05:01
     Author     : alumno
---%><%@page import="java.util.Hashtable"%>
+--%>
+
+<%@page language="java" contentType="text/html"
+        pageEncoding="UTF-8" session="True"%>
+
+<%@page import="java.util.Hashtable"%>
 <%@page import="BD.DatosAdmin"%>
 <%@page import="java.util.logging.Logger"%>
 <%@page import="java.util.logging.Level"%>
@@ -11,41 +16,14 @@
 
 
 
-"<!DOCTYPE html> 
+
 <!--[if lt IE 7 ]> <html lang=\"en\" class=\"ie6 ielt8\"> <![endif]--> 
 <!--[if IE 7 ]>    <html lang=\"en\" class=\"ie7 ielt8\"> <![endif]--> 
 <!--[if IE 8 ]>    <html lang=\"en\" class=\"ie8\"> <![endif]--> 
 <!--[if (gte IE 9)|!(IE)]><!--> 
-
-<%!private DatosAdmin User;%>
-
-<
-
-<%
-    session = request.getSession(true);
-    if (session.getAttribute("usuario") == null) {
-        session.setAttribute("mensaje", new String("Usted no esta logueado"));
-        response.sendRedirect("LogueoSesion");
-    }
-
-    Usuario oUsuario = (Usuario) session.getAttribute("usuario");
-
-    if (oUsuario.getNivel() != 1) {
-        session.setAttribute("mensaje", new String("Usted no es Administrador. Acceso restringido"));
-        response.sendRedirect("LogueoSesion");
-
-    }
-
-    Hashtable Clientes = new Hashtable();
-    try {
-        Clientes = User.TrearUsuariosT();
-    } catch (Exception ex) {
-
-    }%>
-
-
-
-<html lang="es"><!--<![endif]--><head> 
+<html>
+    <%!private DatosAdmin User;%>
+    <head> 
         <script type="text/javascript">
             function ValidaUsr()
             {
@@ -58,7 +36,7 @@
                 ;
             }
         </script> 
-        <meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"> 
+        <<meta http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"> 
         <meta charset=\"utf-8\"> 
         <title>FERRETERIA ANTUNEZ</title> 
         <link rel="stylesheet\" type=\"text/css" href="css/style.css"> 
@@ -200,84 +178,109 @@
         </style>
     </head> 
     <body>
+        <%
+            User = new DatosAdmin();
+            session = request.getSession(true);
+            if (session.getAttribute("usuario") == null) {
+                session.setAttribute("mensaje", new String("Usted no esta logueado"));
+                response.sendRedirect("LogueoSesion");
+            }
+
+            Usuario oUsuario = (Usuario) session.getAttribute("usuario");
+
+            if (oUsuario.getNivel() != 1) {
+                session.setAttribute("mensaje", new String("Usted no es Administrador. Acceso restringido"));
+                response.sendRedirect("LogueoSesion.jsp");
+
+            }
+
+            Hashtable Clientes = new Hashtable();
+            try {
+                Clientes = User.TrearUsuariosT();
+            } catch (Exception ex) {
+
+            }%>
         <h1>Clientes: </h1>
-        <form name ='formulario' action='ModificarClienteAdmin'  method ='POST'>"
+        <form name ='formulario' action='ModificarClienteAdmin'  method ='POST'>
             <table border= 1>
                 <tr>                    
                     <td>Nombre</td>
                     <td>Apellido</td>
-                    <td>Contraseña</td>
+                    <td>ContraseÃ±a</td>
                     <td>Documento</td>                 
                     <td>Telefono</td>
                     <td>Direccion</td>
                 </tr>
-            </table>
-            <%Enumeration e = Clientes.elements();
-                while (e.hasMoreElements()) {
-                    Usuario aux = new Usuario();
-                    aux = (Usuario) e.nextElement();
-                    out.println("<tr>"
-                            + " <td>"
-                            + "<input type='text' name='nombre" + aux.getId() + "'  value='" + aux.getNombre() + "'> </input> </td>"
-                            + " <td>"
-                            + "<input type='text' name='apellido" + aux.getId() + "'  value='" + aux.getApellido() + "'> </input> </td>"
-                            + "<td>"
-                            + "<input type='text' name='pass" + aux.getId() + "'  value='" + aux.getPass() + "'> </input> </td>"
-                            + "<td>"
-                            + "<input type='text' name='documento" + aux.getId() + "' value='" + aux.getDocumento() + "'> </input> </td>"
-                            + "<td>"
-                            + "<input type='text' name='telefono" + aux.getId() + "'  value='" + aux.getTelefono() + "'> </input> </td>"
-                            + "<td>"
-                            + "<input type='text' name='direccion" + aux.getId() + "'  value='" + aux.getDireccion() + "'> </input> </td>"
-                            + "<td> <input type ='submit' name='boton' value='" + aux.getId() + "'</td>"
-                            + "</tr>");%>
 
+                <%
+
+                    Enumeration e = Clientes.elements();
+                    while (e.hasMoreElements()) {
+                        Usuario aux = new Usuario();
+                        aux = (Usuario) e.nextElement();
+                        out.println("<tr>"
+                                + " <td>"
+                                + "<input type='text' name='nombre" + aux.getId() + "'  value='" + aux.getNombre() + "'> </input> </td>"
+                                + " <td>"
+                                + "<input type='text' name='apellido" + aux.getId() + "'  value='" + aux.getApellido() + "'> </input> </td>"
+                                + "<td>"
+                                + "<input type='text' name='pass" + aux.getId() + "'  value='" + aux.getPass() + "'> </input> </td>"
+                                + "<td>"
+                                + "<input type='text' name='documento" + aux.getId() + "' value='" + aux.getDocumento() + "'> </input> </td>"
+                                + "<td>"
+                                + "<input type='text' name='telefono" + aux.getId() + "'  value='" + aux.getTelefono() + "'> </input> </td>"
+                                + "<td>"
+                                + "<input type='text' name='direccion" + aux.getId() + "'  value='" + aux.getDireccion() + "'> </input> </td>"
+                                + "<td> <input type ='submit' name='boton' value='" + aux.getId() + "'> </input> </td>"
+                                + "</tr>");
+                    }
+                %>
+
+
+                <td align=center><a href='MenuAdmin.jsp'>Volver</a></td>
+            </table>
         </form>
-    <td align=center><a href='MenuAdmin'>Volver</a></td>
-</body>
+
+        <%!Usuario aux = null;%>
+        <% aux = new Usuario();
+
+            if (request.getMethod() == "POST") {
+                session = request.getSession(true);
+                String[] BotonID = request.getParameterValues("boton");
+                int idUser = Integer.parseInt(BotonID[0]);
+                String nombre = request.getParameter("nombre" + idUser + "");
+                String apellido = request.getParameter("apellido" + idUser + "");
+                String pass = request.getParameter("pass" + idUser + "");
+                int documento = Integer.parseInt(request.getParameter("documento" + idUser + ""));
+                int telefono = Integer.parseInt(request.getParameter("telefono" + idUser + ""));
+                String direccion = request.getParameter("direccion" + idUser + "");
+
+                try {
+                    aux = User.TraerUsuario(idUser);
+                } catch (Exception ex) {
+
+                }
+                aux.setNombre(nombre);
+                aux.setApellido(apellido);
+                aux.setPass(pass);
+                aux.setDocumento(documento);
+                aux.setDireccion(direccion);
+                aux.setTelefono(telefono);
+
+                try {
+                    User.ModificarUsuario(aux);
+                } catch (Exception ex) {
+
+                }
+
+                RequestDispatcher rd = request.getRequestDispatcher("MenuAdmin.jsp");
+                rd.include(request, response);
+                out.println("Modificado Con Exito");
+
+            }
+
+        %>
+
+    </body>
 </html>
 
-
-<%!Usuario aux = null;%>
-<% aux = new Usuario();
-
-    if (request.getMethod() == "POST")
-    {
-        session = request.getSession(true);
-        String[] BotonID = request.getParameterValues("boton");
-        int idUser = Integer.parseInt(BotonID[0]);
-        String nombre = request.getParameter("nombre" + idUser + "");
-        String apellido = request.getParameter("apellido" + idUser + "");
-        String pass = request.getParameter("pass" + idUser + "");
-        int documento = Integer.parseInt(request.getParameter("documento" + idUser + ""));
-        int telefono = Integer.parseInt(request.getParameter("telefono" + idUser + ""));
-        String direccion = request.getParameter("direccion" + idUser + "");
-
-        
-        try {
-            aux = User.TraerUsuario(idUser);
-        } catch (Exception ex) {
-
-        }
-        aux.setNombre(nombre);
-        aux.setApellido(apellido);
-        aux.setPass(pass);
-        aux.setDocumento(documento);
-        aux.setDireccion(direccion);
-        aux.setTelefono(telefono);
-
-        try {
-            User.ModificarUsuario(aux);
-        } catch (Exception ex) {
-
-        }
-        out.println("<html>");
-        out.println("<body>");
-        RequestDispatcher rd = request.getRequestDispatcher("MenuAdmin");
-        rd.include(request, response);
-        out.println("Modificado Con Exito");
-
-        out.println("</body");
-        out.println("</html>");
-    }
-%>

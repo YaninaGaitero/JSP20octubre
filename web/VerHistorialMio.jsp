@@ -207,7 +207,7 @@
                             + "<td>" + aux.getIdCompra() + "</td>"
                             + "<td>" + oUsuario.getNombre() + "</td>"
                             + "<td>" + aux.getFecha() + "</td>"
-                            + "<td>" + aux.getTotal() + "</td>"
+                            //+ "<td>" + aux.getTotal() + "</td>"
                             + "<td> <input type ='submit' name='boton' value='" + aux.getIdCompra() + "'> </td>"
                             + "</tr>");
                 }
@@ -215,9 +215,7 @@
                 out.println("    </form>");
                 out.println("</body>");
                 out.println("</html>");
-            } 
-    catch (Exception ex) 
-            {
+            } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
         %>
@@ -264,17 +262,16 @@
                                 + "<td>" + auxdet.getCantidad() + "</td>"
                                 + "<td>" + auxdet.getPrecio() + "</td>"
                                 + "</tr>");
-                    } catch (Exception ex)
-                    {
+                    } catch (Exception ex) {
                         System.out.println(ex.getMessage());
                     }
 
                 }
                 out.println("</table>");
+                out.println("</body>");
 
                 out.println("</html>");
 
-                out.println("</body>");
             }
 
         %>
