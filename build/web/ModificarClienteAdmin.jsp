@@ -201,7 +201,8 @@
 
             }%>
         <h1>Clientes: </h1>
-        <form name ='formulario' action='ModificarClienteAdmin'  method ='POST'>
+        <form name ='formulario' action='ModificarClienteAdmin.jsp'  method ='POST'>
+            <center>
             <table border= 1>
                 <tr>                    
                     <td>Nombre</td>
@@ -236,9 +237,8 @@
                     }
                 %>
 
-
                 <td align=center><a href='MenuAdmin.jsp'>Volver</a></td>
-            </table>
+            </table></center>
         </form>
 
         <%!Usuario aux = null;%>

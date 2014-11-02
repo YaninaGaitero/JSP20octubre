@@ -190,7 +190,7 @@
         <%RequestDispatcher rd = request.getRequestDispatcher("Menu");
                 rd.include(request, response);
                 out.println("<h1>Productos: </h1>"
-                        + "<form name ='formulario' action='Comprar'  method ='POST'>");
+                        + "<form name ='formulario' action='Comprar.jsp'  method ='POST'>");
                 out.println("<table >"
                         + "<tr>"
                         + "<td>Nombre</td>"
@@ -220,7 +220,7 @@
                 out.println("</table>");
                 Hashtable Detalles = (Hashtable) session.getAttribute("DetallesCompra");
                 if (!Detalles.isEmpty()) {
-                    out.println("<td ><a href='ConfirmarCompra'>Confirmar Compra</a></td>");
+                    out.println("<td ><a href='ConfirmarCompra.jsp'>Confirmar Compra</a></td>");
                 }
                 out.println("    </form>"
                         + "</body>");
@@ -269,7 +269,7 @@
                     session.setAttribute("DetallesCompra", DetallesCompra);
 
                 }
-                response.sendRedirect("opcCompras");
+                response.sendRedirect("opcCompras.jsp");
 
             }%>
 

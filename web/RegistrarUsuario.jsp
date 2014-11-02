@@ -173,7 +173,7 @@
         
         <div class="container">           
             <section id="content">           
-                <form name ='formulario' action='RegistrarUsuario'  method ='POST'>           
+                <form name ='formulario' action='RegistrarUsuario.jsp'  method ='POST'>           
                     <div>           
                         <input placeholder ='Nombre' type='text' id='nombre' name='nombre' >           
                     </div>           
@@ -227,7 +227,7 @@
                                 } finally {
                                     out.println("<html>");
                                     out.println("<body>");
-                                    out.println("<td align=center><a href='LogueoSesion'>Volver</a></td>");
+                                    out.println("<td align=center><a href='LogueoSesion.jsp'>Volver</a></td>");
                                     out.println("</body>");
                                     out.println("</html>");
                                 }

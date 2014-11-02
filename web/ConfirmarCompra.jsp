@@ -186,7 +186,7 @@
             RequestDispatcher rd = request.getRequestDispatcher("Menu");
             rd.include(request, response);
             out.println("<h1>Detalles: </h1>"
-                    + "<form name ='formulario' action='ConfirmarCompra'  method ='POST'>");
+                    + "<form name ='formulario' action='ConfirmarCompra.jsp'  method ='POST'>");
             out.println("<table border= “1”>"
                     + "<tr>"
                     + "<td>Id Compra</td>"

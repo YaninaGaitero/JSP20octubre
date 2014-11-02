@@ -75,6 +75,9 @@
                                 </li> 
                                 <li> 
                                     <a href='ModificarClienteAdmin.jsp'>Modificar Cliente</a> 
+                                </li>    
+                                <li> 
+                                    <a href='OrdenPiqueo.jsp'>Ver Piqueo</a> 
                                 </li> 
                                 <li> 
                                     <a href='LogOut'>Salir</a> 

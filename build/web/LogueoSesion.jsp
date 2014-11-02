@@ -257,7 +257,7 @@
                     <div>
                         <input type ='button' onClick='javascript:Validar();' value ='Login' />
 
-                        <a href='RegistrarUsuario'>Registrarme</a>
+                        <a href='RegistrarUsuario.jsp'>Registrarme</a>
                     </div>
                 </form><!-- form -->
             </section><!-- content -->
