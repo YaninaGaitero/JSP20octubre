@@ -6,7 +6,6 @@ package BD;
 
 import Modelo.Compra;
 import Modelo.DetalleCompra;
-import Modelo.Piqueo;
 import Modelo.Producto;
 import Modelo.Usuario;
 import java.sql.Date;
@@ -232,65 +231,5 @@ public class DatosAdmin extends BBDD {
 
     }
 
-    public Piqueo TraerPiqueo(int idPiqueo) throws Exception {
-        try {
-            Conectar();
-            Piqueo piqueo = null;
-            String sql = "select * from piqueo where idPiqueo = " + idPiqueo + "";
-            PreparedStatement sent = CrearSentencia(sql);
-            ResultSet rows = Consultar(sent);
-            while (rows.next()) {
-                String descripcionProducto = rows.getString("descripcion");
-                int cantidad = rows.getInt("cantidad");
-                Date fecha = rows.getDate("fecha");
-                int estado = rows.getInt("estado");
-                int idCompra = rows.getInt("compraID");
-                piqueo = new Piqueo(idPiqueo, descripcionProducto, cantidad, fecha, estado);
-            }
-
-            return piqueo;
-        } finally {
-            Desconectar();
-        }
-    }/*
-     public int traerIdDetalleByPiqueo(Piqueo p)throws Exception{
-            
-     try{
-     int idDetalle=0;
-     Conectar();
-     String sql= "select  detalleID from piqueo where piqueoID=" +p.getIdPiqueo()+ " limit 1";
-     PreparedStatement sent = CrearSentencia(sql);
-     ResultSet rows = Consultar(sent);
-     while(rows.next()){
-     idDetalle=rows.getInt("detalleID");
-     }
-     return idDetalle;
-     }
-     finally
-     {
-     Desconectar();
-     }
-     }
-     public int traerIDfacturaFromIDDetalle(int detalle)throws Exception{
-     try
-     {
-     Conectar();
-     int idFC=0;
-     String sql = "select idCompra from detalleCompra where id_detalle = " + detalle + "limit 1";
-     PreparedStatement sent = CrearSentencia(sql);
-     ResultSet rows = Consultar(sent);
-     while (rows.next()) {
-     idFC= rows.getInt("idCompra");
-     }
-        
-     return idFC;
-     }
-     finally
-     {
-     Desconectar();
-     }
-    
-    
-     }*/
 
 }

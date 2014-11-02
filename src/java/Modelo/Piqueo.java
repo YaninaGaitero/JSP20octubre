@@ -15,21 +15,23 @@ import java.util.Hashtable;
  */
 public class Piqueo {
    private int idPiqueo;
-   private Hashtable listaCompras;
+   //private Hashtable listaCompras;
    private String descripcionProducto;
    private int cantidad;
    private Date fecha;
-   private int estado; //1 preparado 2 pendiente
+   private int estado; //2 preparado 1 pendiente
+   private int idProducto;
 
     
     public Piqueo(){}
     
-    public Piqueo(int idPiqueo, String descripcion, int cantidad, Date fecha, int estado){
+    public Piqueo(int idPiqueo, String descripcion, int cantidad, Date fecha, int estado,int idProducto){
         this.idPiqueo=idPiqueo;
         this.descripcionProducto=descripcion;
         this.cantidad=cantidad;
         this.fecha=fecha;
         this.estado=estado;
+        this.idProducto=idProducto;
     
     
     }
@@ -74,12 +76,20 @@ public class Piqueo {
         this.descripcionProducto = descripcionProducto;
     }
 
-    public Hashtable getListaCompras() {
+/*    public Hashtable getListaCompras() {
         return listaCompras;
     }
 
     public void setListaCompras(Hashtable listaCompras) {
         this.listaCompras = listaCompras;
+    }*/
+
+    public int getIdProducto() {
+        return idProducto;
+    }
+
+    public void setIdProducto(int idProducto) {
+        this.idProducto = idProducto;
     }
 
 }
