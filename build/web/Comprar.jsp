@@ -234,9 +234,11 @@
                 %>
             </table>
         </form>
-
     </body>
 </html>
+
+
+
 
 <%if (request.getMethod() == "POST") {
         session = request.getSession(true);
@@ -278,6 +280,7 @@
 
         }
         response.sendRedirect("opcCompras.jsp");
+        
 
     }%>
 
