@@ -16,7 +16,7 @@ import java.sql.SQLException;
  */
 public class BBDD {
     
-    private Connection conexion;
+    protected Connection conexion;
     private Statement sentencia;
     private ResultSet resultado;
      
