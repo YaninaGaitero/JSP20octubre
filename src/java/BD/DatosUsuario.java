@@ -182,7 +182,6 @@ public class DatosUsuario extends BBDD {
         }
     }
 
-
     public void GrabarDetalle(int idCom, float precio, Producto Prod, int cantidad) throws Exception {
         try {
             Conectar();
@@ -279,7 +278,7 @@ public class DatosUsuario extends BBDD {
 
     }
 
-
+    
 
     public Double getTotal(int idCompra) throws Exception {
         Double total = 0D;
@@ -370,9 +369,6 @@ public class DatosUsuario extends BBDD {
             Desconectar();
         }
     }
-
-
-
 
     public String armaInFiltro(Hashtable listaCompras) {
         String inCondition = "(";

@@ -113,6 +113,8 @@ public class DatosAdmin extends BBDD {
         }
 
     }
+    
+
 
     public Hashtable TraerCompras() throws Exception {
         Hashtable lista = new Hashtable();

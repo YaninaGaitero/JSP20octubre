@@ -16,7 +16,7 @@
 
 <%
     session = request.getSession(true);
-
+    User = new DatosUsuario();
     if (session.getAttribute("usuario") == null) {
         session.setAttribute("mensaje", new String("Usted no esta logueado"));
         response.sendRedirect("LogueoSesion");
@@ -238,14 +238,14 @@
                     DetalleCompra aux = new DetalleCompra();
                     aux = (DetalleCompra) e.nextElement();
                     try {
-                        User.GrabarDetalle(aux.getIdCompra(), aux.getPrecio(), aux.getIdProd(), aux.getCantidad());
+                        User.GrabarDetalle(aux.getIdCompra(), aux.getPrecio(), User.TraerProducto(aux.getIdProd()), aux.getCantidad());
                     } catch (Exception ex) {
 
                     }
                     total = total + aux.getPrecio();
                 }
                 try {
-                    User.GrabarCompra(idCompra, ousuario.getId(), total);
+                    User.GrabarCompra(ousuario.getId());
                 } catch (Exception ex) {
 
                 }

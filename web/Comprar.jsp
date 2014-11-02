@@ -212,7 +212,7 @@
                                     + "<td>" + aux.getNombre() + "</td>"
                                     + "<td>" + aux.getPrecio() + "</td>"
                                     + "<td><label>"
-                                    + "      Cantidad:  <input type='text' id='cantidad' name='cantidad" + aux.getId() + "'/>"
+                                    + "<input type='text' id='cantidad' name='cantidad" + aux.getId() + "'/>"
                                     + "  </label></td>"
                                     + "<td>"
                                     + "<input type='hidden' name='ProductoId" + aux.getId() + "' value=" + aux.getId() + " >"
