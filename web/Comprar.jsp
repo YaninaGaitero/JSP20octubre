@@ -13,7 +13,11 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%!DatosUsuario User;%>
-<%session = request.getSession(true);
+
+<%
+    
+    session = request.getSession(true);
+    User = new DatosUsuario();
     if (session.getAttribute("usuario") == null) {
         session.setAttribute("mensaje", new String("Usted no esta logueado"));
         response.sendRedirect("LogueoSesion");
@@ -185,92 +189,98 @@
                 position: fixed !important;  
                 pointer-events: auto !important;  
             }  
-        </style></head>
+        </style>
+    </head>
     <body>
-        <%RequestDispatcher rd = request.getRequestDispatcher("Menu");
-                rd.include(request, response);
-                out.println("<h1>Productos: </h1>"
-                        + "<form name ='formulario' action='Comprar.jsp'  method ='POST'>");
-                out.println("<table >"
-                        + "<tr>"
-                        + "<td>Nombre</td>"
-                        + "<td>Precio</td>"
-                        + "<td>Cantidad</td>"
-                        + "</tr>");
 
-                Enumeration e = tablaProds.elements();
-                while (e.hasMoreElements()) {
-                    Producto aux = new Producto();
-                    aux = (Producto) e.nextElement();
-                    out.println("<tr>"
-                            + "<td>" + aux.getNombre() + "</td>"
-                            + "<td>" + aux.getPrecio() + "</td>"
-                            + "<td><label>"
-                            + "      Cantidad:  <input type='text' id='cantidad' name='cantidad" + aux.getId() + "'/>"
-                            + "  </label></td>"
-                            + "<td>"
-                            + "<input type='hidden' name='ProductoId" + aux.getId() + "' value=" + aux.getId() + " >"
-                            + "</td>"
-                            + "<td>"
-                            + "<input type ='submit' name='boton' value='" + aux.getId() + "'>"
-                            + "</td>"
-                            + "</tr>");
+        <h1>Productos: </h1>
+        <form name ='formulario' action='Comprar.jsp'  method ='POST'>
+            <table >
+                <tr>
+                    <td>Nombre</td>
+                    <td>Precio</td>
+                    <td>Cantidad</td>
+                </tr>
+                <%
+                        /*RequestDispatcher rd = request.getRequestDispatcher("Menu");
+                         rd.include(request, response);*/
+                        Enumeration e = tablaProds.elements();
+                        while (e.hasMoreElements()) {
+                            Producto aux = new Producto();
+                            aux = (Producto) e.nextElement();
+                            out.println("<tr>"
+                                    + "<td>" + aux.getNombre() + "</td>"
+                                    + "<td>" + aux.getPrecio() + "</td>"
+                                    + "<td><label>"
+                                    + "      Cantidad:  <input type='text' id='cantidad' name='cantidad" + aux.getId() + "'/>"
+                                    + "  </label></td>"
+                                    + "<td>"
+                                    + "<input type='hidden' name='ProductoId" + aux.getId() + "' value=" + aux.getId() + " >"
+                                    + "</td>"
+                                    + "<td>"
+                                    + "<input type ='submit' name='boton' value='" + aux.getId() + "'>"
+                                    + "</td>"
+                                    + "</tr>");
 
-                }
-                out.println("</table>");
-                Hashtable Detalles = (Hashtable) session.getAttribute("DetallesCompra");
-                if (!Detalles.isEmpty()) {
-                    out.println("<td ><a href='ConfirmarCompra.jsp'>Confirmar Compra</a></td>");
-                }
-                out.println("    </form>"
-                        + "</body>");
-                out.println("</html>");
-            } finally {
-                out.close();
-            }
-        %>
+                        }
+                        out.println("</table>");
+                        Hashtable Detalles = (Hashtable) session.getAttribute("DetallesCompra");
+                        if (!Detalles.isEmpty()) {
+                            out.println("<td ><a href='ConfirmarCompra.jsp'>Confirmar Compra</a></td>");
+                        }
+                        ;
+                    } finally {
+                        out.close();
+                    }
+                %>
 
-        <%if (request.getMethod() == "POST") {
-                session = request.getSession(true);
+        </form>
 
-                Usuario oUsuarios = (Usuario) session.getAttribute("usuario");
-                String[] BotonID = request.getParameterValues("boton");
-                String cantidad = request.getParameter("cantidad" + BotonID[0] + "");
-                String ProductoId = request.getParameter("ProductoId" + BotonID[0] + "");
+    </body>
+</html>
 
-                int idCompra = 0;
-                try {
-                    idCompra = User.TraerIdCompra();
-                } catch (Exception ex) {
-                    //Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                idCompra++;
+<%if (request.getMethod() == "POST") {
+        session = request.getSession(true);
 
-                Producto oProd = new Producto();
-                try {
-                    String prod = ProductoId;
-                    oProd = User.TraerProducto(Integer.parseInt(ProductoId));
+        Usuario oUsuarios = (Usuario) session.getAttribute("usuario");
+        String[] BotonID = request.getParameterValues("boton");
+        String cantidad = request.getParameter("cantidad" + BotonID[0] + "");
+        String ProductoId = request.getParameter("ProductoId" + BotonID[0] + "");
 
-                } catch (Exception ex) {
-                    //Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
-                }
+        int idCompra = 0;
+        try {
+            idCompra = User.GrabarCompra(oUsuarios.getId());
+        } catch (Exception ex) {
+            //Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        idCompra++;
 
-                float total = Float.parseFloat(cantidad) * (oProd.getPrecio());
+        Producto oProd = new Producto();
+        try {
+            String prod = ProductoId;
+            oProd = User.TraerProducto(Integer.parseInt(ProductoId));
 
-                if (session.getAttribute("DetallesCompra") == null) {
-                    Hashtable DetallesCompra = new Hashtable();
-                    DetalleCompra auxDet = new DetalleCompra(idCompra, total, oProd.getId(), Integer.parseInt(cantidad));
-                    DetallesCompra.put(auxDet.getIdProd(), auxDet);
-                    session.setAttribute("DetallesCompra", DetallesCompra);
-                } else {
-                    Hashtable DetallesCompra = (Hashtable) session.getAttribute("DetallesCompra");
-                    DetalleCompra auxDet = new DetalleCompra(idCompra, total, oProd.getId(), Integer.parseInt(cantidad));
-                    DetallesCompra.put(auxDet.getIdProd(), auxDet);
-                    session.setAttribute("DetallesCompra", DetallesCompra);
+        } catch (Exception ex) {
+            //Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-                }
-                response.sendRedirect("opcCompras.jsp");
+        float total = Float.parseFloat(cantidad) * (oProd.getPrecio());
 
-            }%>
+        if (session.getAttribute("DetallesCompra") == null) {
+            Hashtable DetallesCompra = new Hashtable();
+            DetalleCompra auxDet = new DetalleCompra(idCompra, total, oProd.getId(), Integer.parseInt(cantidad));
+            DetallesCompra.put(auxDet.getIdProd(), auxDet);
+            session.setAttribute("DetallesCompra", DetallesCompra);
+        } else {
+            Hashtable DetallesCompra = (Hashtable) session.getAttribute("DetallesCompra");
+            DetalleCompra auxDet = new DetalleCompra(idCompra, total, oProd.getId(), Integer.parseInt(cantidad));
+            DetallesCompra.put(auxDet.getIdProd(), auxDet);
+            session.setAttribute("DetallesCompra", DetallesCompra);
+
+        }
+        response.sendRedirect("opcCompras.jsp");
+
+    }%>
+
 
 

@@ -167,10 +167,10 @@
             }         
         </style>
     </head>   
- <body>
-            <h1>Ingrese sus datos</h1>
     <body>
-        
+        <h1>Ingrese sus datos</h1>
+    <body>
+
         <div class="container">           
             <section id="content">           
                 <form name ='formulario' action='RegistrarUsuario.jsp'  method ='POST'>           
@@ -199,37 +199,38 @@
                             <div>           
                                 <input type ='submit'  value ='Registrar' />           
                             </div></center>           
-                            </form><!-- form -->           
-                            </section><!-- content -->           
-                        </div><!-- container -->           
-                        </body>
-                        </html>
-                        <%!DatosUsuario User;%>
-                        <%
-                            if (request.getMethod() == "POST")
-                            {
-                                session = request.getSession(true);
-                                response.setContentType("text/html;charset=UTF-8");
+                </form><!-- form -->           
+            </section><!-- content -->           
+        </div><!-- container -->           
 
-                                try {
-                                    String nomb = request.getParameter("nombre");
-                                    String ape = request.getParameter("apellido");
-                                    int doc = Integer.parseInt(request.getParameter("documento"));
-                                    String pass = request.getParameter("pass");
-                                    int tel = Integer.parseInt(request.getParameter("telefono"));
-                                    String direcc = request.getParameter("direccion");
-                                    int idU = User.TraerIdUsuario();
-                                    idU++;
-                                    Usuario aux = new Usuario(idU, nomb, ape, doc, pass, tel, direcc);
-                                    User.GrabarUsuario(aux);
-                                } catch (Exception e) {
-                                    System.out.print(e.getMessage());
-                                } finally {
-                                    out.println("<html>");
-                                    out.println("<body>");
-                                    out.println("<td align=center><a href='LogueoSesion.jsp'>Volver</a></td>");
-                                    out.println("</body>");
-                                    out.println("</html>");
-                                }
-                            }
-                        %>
+        <%!DatosUsuario User;%>
+
+        <%
+            User = new DatosUsuario();
+            if (request.getMethod() == "POST") {
+                session = request.getSession(true);
+                response.setContentType("text/html;charset=UTF-8");
+
+                try {
+                    String nomb = request.getParameter("nombre");
+                    String ape = request.getParameter("apellido");
+                    int doc = Integer.parseInt(request.getParameter("documento"));
+                    String pass = request.getParameter("pass");
+                    int tel = Integer.parseInt(request.getParameter("telefono"));
+                    String direcc = request.getParameter("direccion");
+                    int idU = User.TraerIdUsuario();
+                    idU++;
+                    Usuario aux = new Usuario(idU, nomb, ape, doc, pass, tel, direcc);
+                    User.GrabarUsuario(aux);
+                    out.println("<td align=center><a href='LogueoSesion.jsp'>Volver</a></td>");
+                } catch (Exception e) {
+                    System.out.print(e.getMessage());
+                } finally {
+
+                    out.println("<td align=center><a href='LogueoSesion.jsp'>Volver</a></td>");
+
+                }
+            }
+        %>
+    </body>
+</html>

@@ -80,7 +80,7 @@
                                     <a href='OrdenPiqueo.jsp'>Ver Piqueo</a> 
                                 </li> 
                                 <li> 
-                                    <a href='LogOut'>Salir</a> 
+                                    <a href='LogOut.jsp'>Salir</a> 
                                 </li> 
                             </ul> 
                         </li> 

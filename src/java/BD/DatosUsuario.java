@@ -381,7 +381,6 @@ public class DatosUsuario extends BBDD {
             Compra comp = (Compra) e.nextElement();
             inCondition += comp.getIdCompra() + ",";
         }
-
         return inCondition.substring(0, inCondition.length() - 1) + ")";
     }
 

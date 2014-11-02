@@ -6,13 +6,12 @@
         <title>LogOut</title>
     </head>
 
-
-    <%
-        
+    <body>
+    <%    
         session.invalidate();
         response.sendRedirect("LogueoSesion.jsp");
     %>
 
-    <body>
+
     </body>
 </html>
