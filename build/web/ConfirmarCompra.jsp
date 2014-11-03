@@ -25,7 +25,7 @@
             response.sendRedirect("LogueoSesion.jsp");
         }
         Usuario oUsuario = (Usuario) session.getAttribute("usuario");
-        if (oUsuario.getNivel() != 2) {
+        if (oUsuario.getNivel() != 1) {
             session.setAttribute("mensaje", new String("Usted no es Cliente"));
             response.sendRedirect("LogueoSesion.jsp");
         }
