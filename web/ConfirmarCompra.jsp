@@ -4,6 +4,7 @@
     Author     : alumno
 --%>
 
+<%@page import="Modelo.Compra"%>
 <%@page import="Modelo.DetalleCompra"%>
 <%@page import="Modelo.DetalleCompra"%>
 <%@page import="java.util.Enumeration"%>
@@ -30,7 +31,7 @@
             response.sendRedirect("LogueoSesion.jsp");
         }
         /*Hashtable TablaDetalles = (Hashtable) session.getAttribute("DetallesCompra");*/
-        Hashtable TablaDetalles = User.TraerDetallesPendientes();
+        Hashtable TablaDetalles = User.traerComprasPendientes();
     %>
     <!--<![endif]--><head>              
         <script type="text/javascript">
@@ -190,25 +191,26 @@
         <form name ='formulario' action='ConfirmarCompra.jsp'  method ='POST'>
             <table border= “1”>
                 <tr>
-                    <td>Id Compra</td>
-                    <td>Precio</td>
-                    <td>Producto</td>
-                    <td>Cantidad</td>
-                </tr>
+                    <td>Nº Compra</td>
+                    <td>Usuario</td>
+                    <td>Fecha</td>
+                    <td>Confirmar</td>
+                 </tr>
                 <%
                     /*RequestDispatcher rd = request.getRequestDispatcher("Menu");
                      rd.include(request, response);*/
                     Enumeration e = TablaDetalles.elements();
 
                     while (e.hasMoreElements()) {
-                        DetalleCompra aux = new DetalleCompra();
-                        aux = (DetalleCompra) e.nextElement();
+                        Compra aux = new Compra();
+                        aux = (Compra) e.nextElement();
+                        Usuario us= User.TraerUsuario(aux.getIdUsuario());
                         try {
                             out.println("<tr>"
                                     + "<td>" + aux.getIdCompra() + "</td>"
-                                    + "<td>" + aux.getPrecio() + "</td>"
-                                    + "<td>" + User.TraerNombreProducto(aux.getIdProd()) + "</td>"
-                                    + "<td>" + aux.getCantidad() + "</td>"
+                                    + "<td>" + us.getNombre()+ " "+ us.getApellido() +"</td>"
+                                    + "<td>" + aux.getFecha() + "</td>"
+                                    + "<td><input type ='checkbox' name='boton' checked='checked'/></td>"
                                     + "</tr>");
                         } catch (Exception ex) {
 

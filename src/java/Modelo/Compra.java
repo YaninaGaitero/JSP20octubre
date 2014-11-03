@@ -30,6 +30,15 @@ public class Compra {
        
     }
     
+    public Compra ( int idCompra,int idu, Date fec, int estado)
+    {
+        this.idUsuario = idu;
+        this.fecha = fec;
+        this.setEstado(estado);
+        this.setIdCompra(idCompra);
+       
+    }
+    
     
     public int getIdCompra() {
          return idCompra;

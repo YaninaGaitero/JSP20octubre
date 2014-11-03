@@ -278,7 +278,28 @@ public class DatosUsuario extends BBDD {
 
     }
 
-    public Hashtable TraerDetallesPendientes() throws Exception {
+    public Hashtable traerComprasPendientes () throws Exception{
+        try {
+            Conectar();
+            Hashtable tabla = new Hashtable();
+            String sql = "SELECT * FROM compra   where estado = 1";
+            PreparedStatement sent = CrearSentencia(sql);
+            ResultSet rows = Consultar(sent);
+            while (rows.next()) {
+                int idCompra = rows.getInt("id");
+                int iduser = rows.getInt("idUsuario");
+                Date fe = rows.getDate("fecha");
+                int estado = rows.getInt("estado");
+                Compra aux = new Compra(idCompra,iduser, fe, estado);
+                tabla.put(aux.getIdCompra(), aux);
+            }
+            return tabla;
+        } finally {
+            Desconectar();
+        }
+
+    }
+    /*public Hashtable TraerDetallesPendientes() throws Exception {
         try {
             Conectar();
             Hashtable tabla = new Hashtable();
@@ -300,7 +321,7 @@ public class DatosUsuario extends BBDD {
             Desconectar();
         }
 
-    }
+    }*/
 
     public Double getTotal(int idCompra) throws Exception {
         Double total = 0D;
