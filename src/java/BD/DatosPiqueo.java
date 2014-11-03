@@ -138,6 +138,7 @@ public class DatosPiqueo extends BBDD{
         DetalleCompra auxdet=null;
         String prodDescripcion;
         DatosUsuario dao=new DatosUsuario();
+        DatosProductos daoProd= new DatosProductos();
         int idPiqueo= maxIdPiqueo()+1;
         
         
@@ -153,7 +154,7 @@ public class DatosPiqueo extends BBDD{
                 preparedStatementModificaStock.setInt(2, auxdet.getIdProd());
                 preparedStatementModificaStock.executeUpdate();
                 
-                prodDescripcion= dao.TraerNombreProducto(auxdet.getIdProd());
+                prodDescripcion= daoProd.TraerNombreProducto(auxdet.getIdProd());
                 Piqueo p = getbyID(idPiqueo,auxdet.getIdProd());// verifica si existe una linea de piqueo con mismo cod de prod e idpPROD
                 if(p==null){
                 //GRABO PIQUEO YA Q NO EXISTE
