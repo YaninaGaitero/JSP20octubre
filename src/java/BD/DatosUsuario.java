@@ -182,7 +182,6 @@ public class DatosUsuario extends BBDD {
         }
     }
 
-
     public void GrabarDetalle(int idCom, float precio, Producto Prod, int cantidad) throws Exception {
         try {
             Conectar();
@@ -279,7 +278,29 @@ public class DatosUsuario extends BBDD {
 
     }
 
+    public Hashtable TraerDetallesPendientes() throws Exception {
+        try {
+            Conectar();
+            Hashtable tabla = new Hashtable();
+            String sql = "SELECT * FROM detallecompra  d inner join compra c on d.id_compra = c.id where c.estado = 1";
+            PreparedStatement sent = CrearSentencia(sql);
+            ResultSet rows = Consultar(sent);
+            while (rows.next()) {
+                int det = rows.getInt("id_detalle");
+                int comp = rows.getInt("id_compra");
+                float prec = rows.getFloat("precio");
+                int idprod = rows.getInt("id_producto");
+                int cant = rows.getInt("cantidad");
+                DetalleCompra aux = new DetalleCompra(comp, prec, idprod, cant);
+                aux.setIdDetalle(det);
+                tabla.put(aux.getIdProd(), aux);
+            }
+            return tabla;
+        } finally {
+            Desconectar();
+        }
 
+    }
 
     public Double getTotal(int idCompra) throws Exception {
         Double total = 0D;
@@ -292,7 +313,7 @@ public class DatosUsuario extends BBDD {
         return total;
     }
 
-    /* public int TraerIdCompra() throws Exception {
+    /*public int TraerIdCompra() throws Exception {
      try {
      Conectar();
      int id = 0;
@@ -306,8 +327,8 @@ public class DatosUsuario extends BBDD {
      } finally {
      Desconectar();
      }
-     }
-     */
+    
+     }*/
     public int TraerIdUsuario() throws Exception {
         try {
             Conectar();
@@ -370,9 +391,6 @@ public class DatosUsuario extends BBDD {
             Desconectar();
         }
     }
-
-
-
 
     public String armaInFiltro(Hashtable listaCompras) {
         String inCondition = "(";

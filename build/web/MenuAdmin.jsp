@@ -78,6 +78,9 @@
                                 </li>    
                                 <li> 
                                     <a href='OrdenPiqueo.jsp'>Ver Piqueo</a> 
+                                </li>                               
+                                <li> 
+                                    <a href='ConfirmarCompra.jsp'> Confirmar Pedidos </a> 
                                 </li> 
                                 <li> 
                                     <a href='LogOut.jsp'>Salir</a> 

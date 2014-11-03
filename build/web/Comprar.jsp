@@ -15,7 +15,7 @@
 <%!DatosUsuario User;%>
 
 <%
-    
+
     session = request.getSession(true);
     User = new DatosUsuario();
     if (session.getAttribute("usuario") == null) {
@@ -202,42 +202,43 @@
                     <td>Cantidad</td>
                 </tr>
                 <%
-                        /*RequestDispatcher rd = request.getRequestDispatcher("Menu");
-                         rd.include(request, response);*/
-                        Enumeration e = tablaProds.elements();
-                        while (e.hasMoreElements()) {
-                            Producto aux = new Producto();
-                            aux = (Producto) e.nextElement();
-                            out.println("<tr>"
-                                    + "<td>" + aux.getNombre() + "</td>"
-                                    + "<td>" + aux.getPrecio() + "</td>"
-                                    + "<td><label>"
-                                    + "      Cantidad:  <input type='text' id='cantidad' name='cantidad" + aux.getId() + "'/>"
-                                    + "  </label></td>"
-                                    + "<td>"
-                                    + "<input type='hidden' name='ProductoId" + aux.getId() + "' value=" + aux.getId() + " >"
-                                    + "</td>"
-                                    + "<td>"
-                                    + "<input type ='submit' name='boton' value='" + aux.getId() + "'>"
-                                    + "</td>"
-                                    + "</tr>");
+                    /*RequestDispatcher rd = request.getRequestDispatcher("Menu");
+                     rd.include(request, response);*/
+                    Enumeration e = tablaProds.elements();
+                    while (e.hasMoreElements()) 
+                    
+                    {
+                        Producto aux = new Producto();
+                        aux = (Producto) e.nextElement();
+                        out.println("<tr>"
+                                + "<td>" + aux.getNombre() + "</td>"
+                                + "<td>" + aux.getPrecio() + "</td>"
+                                + "<td><label>"
+                                + "<input type='text' id='cantidad' name='cantidad" + aux.getId() + "'/>"
+                                + "  </label></td>"
+                                + "<td>"
+                                + "<input type='hidden' name='ProductoId" + aux.getId() + "' value=" + aux.getId() + " >"
+                                + "</td>"
+                                + "<td>"
+                                + "<input type ='submit' name='boton' value='" + aux.getId() + "'>"
+                                + "</td>"
+                                + "</tr>");
 
-                        }
-                        out.println("</table>");
-                        Hashtable Detalles = (Hashtable) session.getAttribute("DetallesCompra");
-                        if (!Detalles.isEmpty()) {
-                            out.println("<td ><a href='ConfirmarCompra.jsp'>Confirmar Compra</a></td>");
-                        }
-                        ;
-                    } finally {
-                        out.close();
                     }
+
+                    /*Hashtable Detalles = (Hashtable) session.getAttribute("DetallesCompra");
+                     if (!Detalles.isEmpty()) {
+                     out.println("<td ><a href='ConfirmarCompra.jsp'>Confirmar Compra</a></td>");
+                     }*/ /// ESTO NO LO REALIZA MAS EL USER COMUN, EL ADMIN SE ENCARGAR DE CONFIRMAR LAS COMPRAS 
+                    //  CON LOS PIQUEOS
                 %>
-
+            </table>
         </form>
-
     </body>
 </html>
+
+
+
 
 <%if (request.getMethod() == "POST") {
         session = request.getSession(true);
@@ -279,6 +280,7 @@
 
         }
         response.sendRedirect("opcCompras.jsp");
+        
 
     }%>
 

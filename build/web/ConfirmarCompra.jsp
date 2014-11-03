@@ -12,23 +12,27 @@
 <%@page import="BD.DatosUsuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%!DatosUsuario User;%>
 
-<%
-    session = request.getSession(true);
 
-    if (session.getAttribute("usuario") == null) {
-        session.setAttribute("mensaje", new String("Usted no esta logueado"));
-        response.sendRedirect("LogueoSesion");
-    }
-    Usuario oUsuario = (Usuario) session.getAttribute("usuario");
-    if (oUsuario.getNivel() != 2) {
-        session.setAttribute("mensaje", new String("Usted no es Cliente"));
-        response.sendRedirect("LogueoSesion");
-    }
-    Hashtable TablaDetalles = (Hashtable) session.getAttribute("DetallesCompra");
-%>
-<html lang="es"><!--<![endif]--><head>              
+<html>
+    <%!DatosUsuario User;%>
+
+    <%
+        session = request.getSession(true);
+        User = new DatosUsuario();
+        if (session.getAttribute("usuario") == null) {
+            session.setAttribute("mensaje", new String("Usted no esta logueado"));
+            response.sendRedirect("LogueoSesion.jsp");
+        }
+        Usuario oUsuario = (Usuario) session.getAttribute("usuario");
+        if (oUsuario.getNivel() != 2) {
+            session.setAttribute("mensaje", new String("Usted no es Cliente"));
+            response.sendRedirect("LogueoSesion.jsp");
+        }
+        /*Hashtable TablaDetalles = (Hashtable) session.getAttribute("DetallesCompra");*/
+        Hashtable TablaDetalles = User.TraerDetallesPendientes();
+    %>
+    <!--<![endif]--><head>              
         <script type="text/javascript">
             function ValidaUsr()
             {
@@ -182,55 +186,55 @@
             }              
         </style></head>
     <body>
-        <%
-            RequestDispatcher rd = request.getRequestDispatcher("Menu");
-            rd.include(request, response);
-            out.println("<h1>Detalles: </h1>"
-                    + "<form name ='formulario' action='ConfirmarCompra.jsp'  method ='POST'>");
-            out.println("<table border= “1”>"
-                    + "<tr>"
-                    + "<td>Id Compra</td>"
-                    + "<td>Precio</td>"
-                    + "<td>Producto</td>"
-                    + "<td>Cantidad</td>"
-                    + "</tr>");
-            Enumeration e = TablaDetalles.elements();
+        <h1>Detalles: </h1>
+        <form name ='formulario' action='ConfirmarCompra.jsp'  method ='POST'>
+            <table border= “1”>
+                <tr>
+                    <td>Id Compra</td>
+                    <td>Precio</td>
+                    <td>Producto</td>
+                    <td>Cantidad</td>
+                </tr>
+                <%
+                    /*RequestDispatcher rd = request.getRequestDispatcher("Menu");
+                     rd.include(request, response);*/
+                    Enumeration e = TablaDetalles.elements();
 
-            while (e.hasMoreElements()) {
-                DetalleCompra aux = new DetalleCompra();
-                aux = (DetalleCompra) e.nextElement();
-                try {
-                    out.println("<tr>"
-                            + "<td>" + aux.getIdCompra() + "</td>"
-                            + "<td>" + aux.getPrecio() + "</td>"
-                            + "<td>" + User.TraerNombreProducto(aux.getIdProd()) + "</td>"
-                            + "<td>" + aux.getCantidad() + "</td>"
-                            + "</tr>");
-                } catch (Exception ex) {
+                    while (e.hasMoreElements()) {
+                        DetalleCompra aux = new DetalleCompra();
+                        aux = (DetalleCompra) e.nextElement();
+                        try {
+                            out.println("<tr>"
+                                    + "<td>" + aux.getIdCompra() + "</td>"
+                                    + "<td>" + aux.getPrecio() + "</td>"
+                                    + "<td>" + User.TraerNombreProducto(aux.getIdProd()) + "</td>"
+                                    + "<td>" + aux.getCantidad() + "</td>"
+                                    + "</tr>");
+                        } catch (Exception ex) {
 
-                }
+                        }
 
-            }
-            out.println("</table>");
-            out.println("<input type ='submit'  value='Confirmar'>");
-            out.println("</form>");
-            out.println("</body>");
-                                     out.println("</html>");%>
+                    }
+                %>
+
+            </table>
+            <input type ='submit'  value='Confirmar'/>
+        </form>
 
         <%
             if (request.getMethod() == "POST") {
                 session = request.getSession(true);
 
                 Usuario ousuario = (Usuario) session.getAttribute("usuario");
-                int idCompra = 0;
-                try {
-                    idCompra = User.TraerIdCompra();
-                } catch (Exception ex) {
+                /* int idCompra = 0;
+                 try {
+                 idCompra = User.GrabarCompra(ousuario.getId());
+                 } catch (Exception ex) {
 
-                }
-                idCompra++;
+                 }
+                 idCompra++;*/
 
-                Hashtable TablaDetalless = (Hashtable) session.getAttribute("DetallesCompra");
+                /*Hashtable TablaDet = (Hashtable) session.getAttribute("DetallesCompra");*/
                 Enumeration enu = TablaDetalles.elements();
 
                 float total = 0;
@@ -238,28 +242,19 @@
                     DetalleCompra aux = new DetalleCompra();
                     aux = (DetalleCompra) e.nextElement();
                     try {
-                        User.GrabarDetalle(aux.getIdCompra(), aux.getPrecio(), aux.getIdProd(), aux.getCantidad());
+                        User.GrabarDetalle(aux.getIdCompra(), aux.getPrecio(), User.TraerProducto(aux.getIdProd()), aux.getCantidad());
                     } catch (Exception ex) {
 
                     }
                     total = total + aux.getPrecio();
                 }
                 try {
-                    User.GrabarCompra(idCompra, ousuario.getId(), total);
+                    User.GrabarCompra(ousuario.getId());
                 } catch (Exception ex) {
 
                 }
-                out.println("<html>");
-
-                out.println("<body>");
-
                 session.setAttribute("DetallesCompra", null);
-                RequestDispatcher req = request.getRequestDispatcher("Menu");
-                req.include(request, response);
-                out.println("</html>");
-
-                out.println("</body>");
-
             }
-
         %>
+    </body>
+</html>
