@@ -11,7 +11,7 @@
     <body>  
 
         <br>  
-    <td align=center><a href='ConfirmarCompra'>Confirmar Compra</a></td>  
+    <td align=center><a href='ConfirmarCompra.jsp'>Confirmar Compra</a></td>  
     <br>  
     <td align=center><a href='SacarCarrito'>Sacar Compra</a></td>  
     <br>  

@@ -192,7 +192,7 @@
             RequestDispatcher rd = request.getRequestDispatcher("Menu");
             rd.include(request, response);
             out.println("<h1>Detalles: </h1>"
-                    + "<form name ='formulario' action='SacarCarrito'  method ='POST'>");
+                    + "<form name ='formulario' action='SacarCarrito.jsp'  method ='POST'>");
             out.println("<table border= “1”>"
                     + "<tr>"
                     + "<td>Id Compra</td>"
@@ -223,7 +223,7 @@
                 response.sendRedirect("Comprar");
             }
 
-            out.println("<td align=center><a href='Comprar'>Seguir Comprando</a></td>");
+            out.println("<td align=center><a href='Comprar.jsp'>Seguir Comprando</a></td>");
             out.println("</form>");
             out.println("</body>");
             out.println("</html>");
@@ -237,7 +237,7 @@
                 int id = Integer.parseInt(boton[0]);
                 DetallesCompra.remove(id);
                 session.setAttribute("DetallesCompra", DetallesCompras);
-                response.sendRedirect("SacarCarrito");
+                response.sendRedirect("SacarCarrito.jsp");
             }
         %>
 

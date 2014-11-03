@@ -196,7 +196,7 @@
     </head>
     <body>
         <h1>Clientes: </h1>
-        <form name ='formulario' action='DarDeBaja'  method ='POST'>
+        <form name ='formulario' action='DarDeBaja.jsp'  method ='POST'>
 
             <table border= “1”>
                 <tr>

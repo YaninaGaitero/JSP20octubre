@@ -191,7 +191,7 @@
         <%                                RequestDispatcher rd = request.getRequestDispatcher("Menu");
                 rd.include(request, response);
                 out.println("<h1 align=center>Historial: </h1>"
-                        + "<form name ='formulario' action='VerHistorialMio'  method ='POST'>");
+                        + "<form name ='formulario' action='VerHistorialMio.jsp'  method ='POST'>");
                 out.println("<table align=center border= “1”>"
                         + "<tr >"
                         + "<td>Id Compra</td>"

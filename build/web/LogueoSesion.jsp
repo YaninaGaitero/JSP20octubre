@@ -44,7 +44,7 @@
             <jsp:setProperty name="usuario" property="estado" value="<%= oUsuario.getEstado() %>" />
             <jsp:setProperty name="usuario" property="id" value="<%= oUsuario.getId() %>" />
             <jsp:setProperty name="usuario" property="telefono" value="<%= oUsuario.getTelefono() %>" />
-            <jsp:setProperty name="usuario" property="pass" value="<%= oUsuario.getPass() %>" />
+            <jsp:setProperty name="usuario" property="pass" value="XXXXXXXX" />
             <jsp:setProperty name="usuario" property="nivel" value="<%= oUsuario.getNivel() %>" />
             <%
             
