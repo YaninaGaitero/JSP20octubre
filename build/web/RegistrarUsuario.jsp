@@ -206,12 +206,14 @@
         <%!DatosUsuario User;%>
 
         <%
-            User = new DatosUsuario();
             if (request.getMethod() == "POST") {
                 session = request.getSession(true);
                 response.setContentType("text/html;charset=UTF-8");
 
                 try {
+                    
+                    User = new DatosUsuario();
+                    User.Conectar();
                     String nomb = request.getParameter("nombre");
                     String ape = request.getParameter("apellido");
                     int doc = Integer.parseInt(request.getParameter("documento"));

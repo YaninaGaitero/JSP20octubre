@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/BD/DatosUsuario.java</file>
-            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/web/VerVentasAdmin.jsp</file>
-            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/BD/DatosAdmin.java</file>
-            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/Controladora/ControladoraCompra.java</file>
+            <file>file:/C:/Users/Yanina/Documents/GitHub/JSP20octubre/src/java/BD/DatosPiqueo.java</file>
+            <file>file:/C:/Users/Yanina/Documents/GitHub/JSP20octubre/src/java/Modelo/Piqueo.java</file>
+            <file>file:/C:/Users/Yanina/Documents/GitHub/JSP20octubre/nbproject/build-impl.xml</file>
         </group>
     </open-files>
 </project-private>
