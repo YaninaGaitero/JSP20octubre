@@ -12,12 +12,32 @@
 <%@page import="java.util.Hashtable"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%!DatosUsuario User;%>
+<%!
+    DatosUsuario User;
+    
+    public void jspInit()
+    {
+        try {
+        User = new DatosUsuario();
+        }
+        catch (Exception E)
+        {
+            System.out.println(E.getMessage());
+        }
+    }
+    public void jspDestroy()
+    {
+        User.Desconectar();
+    }
+%>
+
+<jsp:useBean id="detalles" class="java.util.Hashtable" scope="session" />
+<jsp:useBean id="aggdetalles" class="Modelo.DetalleCompra" scope="request" />
 
 <%
 
-    session = request.getSession(true);
-    User = new DatosUsuario();
+    
+    
     if (session.getAttribute("usuario") == null) {
         session.setAttribute("mensaje", new String("Usted no esta logueado"));
         response.sendRedirect("LogueoSesion");
@@ -30,15 +50,15 @@
     }
 
     /* TODO output your page here. You may use following sample code. */
-    Hashtable tablaProds = new Hashtable();
-    try {
-        tablaProds = User.TraerProductos();
+    
 %>
 "<!--[if lt IE 7 ]> <html lang=\"en\" class=\"ie6 ielt8\"> <![endif]-->  
 <!--[if IE 7 ]>    <html lang=\"en\" class=\"ie7 ielt8\"> <![endif]-->  
 <!--[if IE 8 ]>    <html lang=\"en\" class=\"ie8\"> <![endif]-->  
 <!--[if (gte IE 9)|!(IE)]><!-->  
-<html lang="es"><!--<![endif]--><head>  
+<!--<![endif]-->
+<html lang="es">
+    <head>  
         <script type="text/javascript">
             function ValidaUsr()
             {
@@ -192,7 +212,8 @@
         </style>
     </head>
     <body>
-
+        
+       
         <h1>Productos: </h1>
         <form name ='formulario' action='Comprar.jsp'  method ='POST'>
             <table >
@@ -202,6 +223,8 @@
                     <td>Cantidad</td>
                 </tr>
                 <%
+                    Hashtable tablaProds = new Hashtable();
+                    tablaProds = User.TraerProductos();
                     /*RequestDispatcher rd = request.getRequestDispatcher("Menu");
                      rd.include(request, response);*/
                     Enumeration e = tablaProds.elements();
@@ -235,6 +258,7 @@
             </table>
         </form>
     </body>
+
 </html>
 
 
@@ -249,13 +273,14 @@
         String ProductoId = request.getParameter("ProductoId" + BotonID[0] + "");
 
         int idCompra = 0;
+        /*
         try {
             idCompra = User.GrabarCompra(oUsuarios.getId());
         } catch (Exception ex) {
             //Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         idCompra++;
-
+        
         Producto oProd = new Producto();
         try {
             String prod = ProductoId;
@@ -266,7 +291,15 @@
         }
 
         float total = Float.parseFloat(cantidad) * (oProd.getPrecio());
-
+        
+        %>
+        <jsp:setProperty name="aggdetalles" property="idCompra" value="<%= idCompra %>" />
+        <jsp:setProperty name="aggdetalles" property="precio" value="<%= total %>" />
+        <jsp:setProperty name="aggdetalles" property="idProd" value="<%= oProd.getId() %>" />
+        <jsp:setProperty name="aggdetalles" property="cantidad" value="<%= cantidad %>" />
+        <%
+        detalles.put(aggdetalles.getIdProd(), aggdetalles);
+        /*
         if (session.getAttribute("DetallesCompra") == null) {
             Hashtable DetallesCompra = new Hashtable();
             DetalleCompra auxDet = new DetalleCompra(idCompra, total, oProd.getId(), Integer.parseInt(cantidad));
@@ -279,6 +312,7 @@
             session.setAttribute("DetallesCompra", DetallesCompra);
 
         }
+                */
         response.sendRedirect("opcCompras.jsp");
         
 
