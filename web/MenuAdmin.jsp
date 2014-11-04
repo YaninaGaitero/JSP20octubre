@@ -82,7 +82,7 @@
                                     <a href='ConfirmarCompra.jsp'> Confirmar Pedidos </a> 
                                 </li> 
                                 <li> 
-                                    <a href='LogOut.jsp'>Salir</a> 
+                                    <a href="index.html" rel="external" class="activated">Salir</a> 
                                 </li> 
                             </ul> 
                         </li> 

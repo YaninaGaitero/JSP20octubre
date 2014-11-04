@@ -53,7 +53,7 @@
                                     <a href='VerHistorialMio.jsp'>Historial</a> 
                                 </li> 
                                 <li> 
-                                    <a href='LogueoSesion.jsp'>Salir</a> 
+                                    <a href="index.html" rel="external" class="activated">Salir</a> 
                                 </li> 
                             </ul> 
                         </li> 
