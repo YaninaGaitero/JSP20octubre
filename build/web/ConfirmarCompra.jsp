@@ -45,6 +45,8 @@
                 }
                 ;
             }
+
+
         </script>              
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">              
         <meta charset="utf-8">              
@@ -223,39 +225,19 @@
             <input type ='submit'  value='Confirmar'/>
         </form>
 
+
         <%
             if (request.getMethod() == "POST") {
                 session = request.getSession(true);
 
-                Usuario ousuario = (Usuario) session.getAttribute("usuario");
-                /* int idCompra = 0;
-                 try {
-                 idCompra = User.GrabarCompra(ousuario.getId());
-                 } catch (Exception ex) {
-
-                 }
-                 idCompra++;*/
-
-                /*Hashtable TablaDet = (Hashtable) session.getAttribute("DetallesCompra");*/
-                Enumeration enu = TablaDetalles.elements();
-
-                float total = 0;
-                while (enu.hasMoreElements()) {
-                    DetalleCompra aux = new DetalleCompra();
-                    aux = (DetalleCompra) e.nextElement();
-                    try {
-                        User.GrabarDetalle(aux.getIdCompra(), aux.getPrecio(), User.TraerProducto(aux.getIdProd()), aux.getCantidad());
-                    } catch (Exception ex) {
-
-                    }
-                    total = total + aux.getPrecio();
-                }
-                try {
-                    User.GrabarCompra(ousuario.getId());
-                } catch (Exception ex) {
-
-                }
-                session.setAttribute("DetallesCompra", null);
+               String[] botones=   null;
+               botones= request.getParameterValues("boton");
+               if(botones!=null ){
+                   for (int i=0; i< botones.length; i++){
+                       String b=botones[i];
+                   }
+               }
+                //session.setAttribute("DetallesCompra", null);
             }
         %>
     </body>

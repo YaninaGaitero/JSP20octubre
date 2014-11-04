@@ -154,7 +154,6 @@ public class DatosAdmin extends BBDD {
         } finally {
             Desconectar();
         }
-
     }
 
     public void BajarEstado(int id) throws Exception {

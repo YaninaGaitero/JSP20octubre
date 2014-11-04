@@ -28,7 +28,6 @@
 <jsp:include page="Validaciones/ValidAdmin.jsp" />
 <html>
     <head> 
-        <meta charset="utf-8"> 
         <meta name="viewport" content="width=device-width, initial-scale=1"> 
         <title>BIENVENIDO A NUESTRA FERRETERIA</title> 
         <!-- All Stylesheets --> 
@@ -38,7 +37,7 @@
         <script type="text/javascript" src="js/add2home.js" charset="utf-8"></script> 
         <!-- Javascript File --> 
         <script src="js/jquery.js"></script> 
-        <script type="text/javascript" src=\"js/jquery-1.7.1.min.js\"></script> 
+        <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script> 
         <!-- Donut Chart --> 
         <script type="text/javascript" src="js/jquery.donutchart.js"></script> 
         <!-- jQuery Mobile --> 
@@ -62,10 +61,10 @@
                 <div id="accordion"> 
                     <ul id="items"> 
                         <li> 
-                            <a href="index.html" rel="external" class="activated"></i>INICIO</a> 
+                            <a href="index.html" rel="external" class="activated">INICIO</a> 
                         </li> 
                         <li> 
-                            <a href="#"></i>General</a> 
+                            <a href="#">General</a> 
                             <ul class="sub-items"> 
                                 <li> 
                                     <a href='VerVentasAdmin.jsp'>Ver Ventas</a> 
@@ -90,12 +89,12 @@
                     </ul> 
                 </div> 
             </div> 
-            <div data-role="panel" id="right-panel" data-position="right" data-theme="g"> 
-            </div>
+            <div data-role="panel" id="right-panel" data-position="right" data-theme="g"> </div>
             <script src="owl-carousel/owl-carousel/owl.carousel.js"></script>  
             <!-- Custom JS File --> 
             <script src="js/custom.js"></script>  
-            <script src="menu/js/main.js"></script>     
+            <script src="menu/js/main.js"></script>
+            </div>
 
     </body> 
 </html>

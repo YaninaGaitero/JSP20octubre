@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 
 <!--[if lt IE 7 ]> <html lang=\"en\" class=\"ie6 ielt8\"> <![endif]--> 
@@ -13,9 +12,10 @@
     <body>
     <%    
         session.invalidate();
-        response.sendRedirect("LogueoSesion.jsp");
-    %>
+        response.flushBuffer();
+        response.sendRedirect("index.jsp");
 
+    %>
 
     </body>
 </html>

@@ -367,23 +367,7 @@ public class DatosUsuario extends BBDD {
         }
     }
 
-    public String TraerNombreProducto(int id) throws Exception {
-        try {
-            String nombre = null;
-            Conectar();
-            String sql = "select nombre from productos where id = '" + id + "'";
-            PreparedStatement sent = CrearSentencia(sql);
-            ResultSet rows = Consultar(sent);
-            if (rows.next()) {
-                nombre = rows.getString("nombre");
-            }
-            return nombre;
 
-        } finally {
-            Desconectar();
-        }
-
-    }
 
     public Usuario TraerUsuario(int id) throws Exception {
         try {
