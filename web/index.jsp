@@ -11,9 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
-        <h1>Programa</h1>
-        <a href="LogueoSesion.jsp">Ingresar</a>
-       
+    <body onload="sub.submit()">
+        <form id="sub" name="sub" action="LogueoSesion.jsp"></form>
     </body>
 </html>

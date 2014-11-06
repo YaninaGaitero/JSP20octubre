@@ -41,7 +41,7 @@
                 <div id="accordion"> 
                     <ul id="items"> 
                         <li> 
-                            <a href="index.html" rel="external" class="activated"></i>INICIO</a> 
+                            <a href="index.jsp" rel="external" class="activated"></i>INICIO</a> 
                         </li> 
                         <li> 
                             <a href="#"></i>General</a> 
@@ -53,7 +53,7 @@
                                     <a href='VerHistorialMio.jsp'>Historial</a> 
                                 </li> 
                                 <li> 
-                                    <a href="index.html" rel="external" class="activated">Salir</a> 
+                                    <a href="index.jsp" rel="external" class="activated">Salir</a> 
                                 </li> 
                             </ul> 
                         </li> 
@@ -89,7 +89,7 @@
                                 controlNav: false,
                                 animationLoop: false,
                                 slideshow: false,
-                                sync: \"#carousel\", 
+                                sync: \"#carousel\",
                                 start: function(slider){
                                 $('body').removeClass('loading');
                                 }

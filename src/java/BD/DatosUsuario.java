@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Hashtable;
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable;
 import java.util.LinkedList;
 
 /**
@@ -168,11 +168,11 @@ public class DatosUsuario extends BBDD {
         int ultimaFactura = 0;
         try {
             Conectar();
-            procedimiento = getConexion().prepareCall("call InsertarFacturaID( ? , ? , ?,? )");
+            procedimiento = getConexion().prepareCall("{call InsertarFacturaID( ? , ? , ?,? )}");
             procedimiento.registerOutParameter("lastID", Types.INTEGER);
-            procedimiento.setDate("fecha", new java.sql.Date(new java.util.Date().getTime()));
+            procedimiento.setDate("fec", new java.sql.Date(new java.util.Date().getTime()));
             procedimiento.setInt("usuario", idUsuario);
-            procedimiento.setInt("estado", 1);
+            procedimiento.setInt("EST", 1);
             procedimiento.execute();
             ultimaFactura = procedimiento.getInt("lastID");
             procedimiento.close();
@@ -186,7 +186,7 @@ public class DatosUsuario extends BBDD {
         try {
             Conectar();
 
-            String sql = "insert into detallecompra ( id_compra, precio, id_producto, cantidad) values('" + idCom + "', '" + precio + "', '" + Prod.getId() + "', " + cantidad + ")";
+            String sql = "insert into detallecompra ( id_compra, precio, id_producto, cantidad) values(" + idCom + ", " + precio + ", " + Prod.getId() + ", " + cantidad + ")";
             PreparedStatement sent = CrearSentencia(sql);
             Actualizar(sent);
 

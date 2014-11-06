@@ -3,26 +3,12 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="BD.DatosUsuario"%>
 <%@page import="Modelo.Usuario"%>
-<%@page import="java.util.Hashtable"%>
+<%@page import="com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%!
-    DatosUsuario User;
-    
-    public void jspInit()
-    {
-        try {
-        User = new DatosUsuario();
-        }
-        catch (Exception E)
-        {
-            System.out.println(E.getMessage());
-        }
-    }
-    public void jspDestroy()
-    {
-        User.Desconectar();
-    }
+<%! DatosUsuario User;
+    Usuario oUsuario;
+    Hashtable tablaProds;
 %>
 
 <jsp:useBean id="detalles" class="java.util.Hashtable" scope="session" />
@@ -30,36 +16,28 @@
 
 <%
 
-    
-    
+    session = request.getSession(true);
+    User = new DatosUsuario();
     if (session.getAttribute("usuario") == null) {
         session.setAttribute("mensaje", new String("Usted no esta logueado"));
-        response.sendRedirect("LogueoSesion");
+        response.sendRedirect("LogueoSesion.jsp");
     }
-    Usuario oUsuario = (Usuario) session.getAttribute("usuario");
+    oUsuario = (Usuario) session.getAttribute("usuario");
     if (oUsuario.getNivel() != 2) {
         session.setAttribute("mensaje", new String("Usted no es Cliente"));
-        response.sendRedirect("LogueoSesion");
+        response.sendRedirect("LogueoSesion.jsp");
 
     }
 
     /* TODO output your page here. You may use following sample code. */
-<<<<<<< HEAD
-    Hashtable tablaProds = new Hashtable();
+    tablaProds = new Hashtable();
     
         tablaProds = User.TraerProductos();
-=======
-    
->>>>>>> origin/master
 %>
 "<!--[if lt IE 7 ]> <html lang=\"en\" class=\"ie6 ielt8\"> <![endif]-->  
 <!--[if IE 7 ]>    <html lang=\"en\" class=\"ie7 ielt8\"> <![endif]-->  
 <!--[if IE 8 ]>    <html lang=\"en\" class=\"ie8\"> <![endif]-->  
 <!--[if (gte IE 9)|!(IE)]><!-->  
-<<<<<<< HEAD
-=======
-<!--<![endif]-->
->>>>>>> origin/master
 <html lang="es">
     <head>  
         <script type="text/javascript">
@@ -81,8 +59,7 @@
         
     </head>
     <body>
-        
-       
+
         <h1>Productos: </h1>
         <form name ='formulario' action='Comprar.jsp'  method ='POST'>
             <table >
@@ -91,16 +68,19 @@
                     <td>Precio</td>
                     <td>Cantidad</td>
                 </tr>
+                <%!
+                    Enumeration e;
+                    Producto aux;
+                
+                %>
                 <%
-                    Hashtable tablaProds = new Hashtable();
-                    tablaProds = User.TraerProductos();
                     /*RequestDispatcher rd = request.getRequestDispatcher("Menu");
                      rd.include(request, response);*/
-                    Enumeration e = tablaProds.elements();
+                    e = tablaProds.elements();
                     while (e.hasMoreElements()) 
                     
                     {
-                        Producto aux = new Producto();
+                        aux = new Producto();
                         aux = (Producto) e.nextElement();
                         out.println("<tr>"
                                 + "<td>" + aux.getNombre() + "</td>"
@@ -127,27 +107,22 @@
             </table>
         </form>
     </body>
-
 </html>
 
-
-
-
 <%if (request.getMethod() == "POST") {
-        session = request.getSession(true);
-
-        Usuario oUsuarios = (Usuario) session.getAttribute("usuario");
+        
+        
         String[] BotonID = request.getParameterValues("boton");
         String cantidad = request.getParameter("cantidad" + BotonID[0] + "");
         String ProductoId = request.getParameter("ProductoId" + BotonID[0] + "");
 
         int idCompra = 0;
-        /*
+        
         try {
-            idCompra = User.GrabarCompra(oUsuarios.getId());
+            idCompra = User.GrabarCompra(oUsuario.getId());
         } catch (Exception ex) {
             //Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
         idCompra++;
         
         Producto oProd = new Producto();
@@ -161,11 +136,13 @@
 
         float total = Float.parseFloat(cantidad) * (oProd.getPrecio());
         
+        
         %>
-        <jsp:setProperty name="aggdetalles" property="idCompra" value="<%= idCompra %>" />
+        <jsp:setProperty name="aggdetalles" property="idCompra" value="0" />
         <jsp:setProperty name="aggdetalles" property="precio" value="<%= total %>" />
         <jsp:setProperty name="aggdetalles" property="idProd" value="<%= oProd.getId() %>" />
-        <jsp:setProperty name="aggdetalles" property="cantidad" value="<%= cantidad %>" />
+        <jsp:setProperty name="aggdetalles" property="cantidad" value="<%= Integer.parseInt(cantidad) %>" />
+        
         <%
         detalles.put(aggdetalles.getIdProd(), aggdetalles);
         /*
@@ -186,6 +163,71 @@
         
 
     }%>
+
+
+
+<%--!
+     Usuario oUsuarios;
+        String BotonID;
+        String cantidad;
+        String ProductoId;
+        int idCompra = 0;
+        Producto oProd;
+        String prod;
+        Hashtable DetallesCompra;
+        DetalleCompra auxDet;
+        int btn, cant;
+--%>
+
+
+
+
+
+
+<%--if (request.getMethod() == "POST") {
+        session = request.getSession(true);
+
+        oUsuarios = (Usuario) session.getAttribute("usuario");
+        BotonID = request.getParameter("boton");
+        btn = Integer.parseInt(BotonID);
+        cantidad = request.getParameter("cantidad"+btn+"");
+        cant = Integer.parseInt(cantidad);
+        
+
+        try {
+            idCompra = User.GrabarCompra(oUsuarios.getId());
+        } catch (Exception ex) {
+            //Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        idCompra++;
+
+        oProd = new Producto();
+        try {
+            prod = ProductoId;
+            oProd = User.TraerProducto(Integer.parseInt(ProductoId));
+
+        } catch (Exception ex) {
+            //Logger.getLogger(Comprar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        float total = Float.parseFloat(cantidad) * (oProd.getPrecio());
+
+        if (session.getAttribute("DetallesCompra") == null) {
+            DetallesCompra = new Hashtable();
+            auxDet = new DetalleCompra(idCompra, total, oProd.getId(), Integer.parseInt(cantidad));
+            DetallesCompra.put(auxDet.getIdProd(), auxDet);
+            session.setAttribute("DetallesCompra", DetallesCompra);
+        } else {
+            DetallesCompra = (Hashtable) session.getAttribute("DetallesCompra");
+            auxDet = new DetalleCompra(idCompra, total, oProd.getId(), Integer.parseInt(cantidad));
+            DetallesCompra.put(auxDet.getIdProd(), auxDet);
+            session.setAttribute("DetallesCompra", DetallesCompra);
+            
+        }
+        response.sendRedirect("opcCompras.jsp");
+        
+
+    }--%>
 
 
 

@@ -49,7 +49,7 @@
         <div data-role="page" id="page" data-theme="a"> 
             <!-- header Starts --> 
             <div data-role="header" data-theme="f" class="header"> 
-                <h1><a href="index.html" rel="external">FERRETERIA ANTUNEZ</a></h1> 
+                <h1><a href="index.jsp" rel="external">FERRETERIA ANTUNEZ</a></h1> 
                 <a href="#left-panel" data-shadow="false" ><i class="fa fa-indent fa-2x"></i></a> 
                 <a href="#right-panel" data-shadow="false" ><i class="fa fa-bars fa-2x"></i></a> 
             </div> 
@@ -82,7 +82,7 @@
                                     <a href='ConfirmarCompra.jsp'> Confirmar Pedidos </a> 
                                 </li> 
                                 <li> 
-                                    <a href="index.html" rel="external" class="activated">Salir</a> 
+                                    <a href="index.jsp" rel="external" class="activated">Salir</a> 
                                 </li> 
                             </ul> 
                         </li> 
