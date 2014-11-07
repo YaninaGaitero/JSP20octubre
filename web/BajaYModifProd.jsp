@@ -69,10 +69,10 @@
             float price = Float.parseFloat(prc);
             modif.setPrecio(price);
         }
-        String est = request.getParameter("estado");
-        int state = Integer.parseInt(est);
-        if (state!=5)
-        {           
+        if (request.getParameter("estado")!="")
+        {       
+            String est = request.getParameter("estado");
+            int state = Integer.parseInt(est);
             modif.setEstado(state);
         }
         ConexionProductos.modificarProducto(modif);
@@ -184,7 +184,7 @@
                 <tr><td>Stock:</td><td><input type="text" id="stock" name="stock"></td></tr>
                 <tr><td>Precio:</td><td><input type="text" id="precio" name="precio"></td></tr>
                 <tr><td>Cambiar Estado: </td><td><select size='1' id='estado' name='estado'>
-                <option value='5'>Elige un estado</option>
+                <option value=''>Elige un estado</option>
                 <option value='1'>De Alta</option>
                 <option value='0'>De Baja</option>
             </select></td></tr>
