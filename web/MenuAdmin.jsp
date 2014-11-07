@@ -77,7 +77,12 @@
                                 </li>    
                                 <li> 
                                     <a href='OrdenPiqueo.jsp'>Ver Piqueo</a> 
-                                </li>                               
+                                </li> 
+                                
+                                <li> 
+                                   <a href='BajaYModifProd.jsp'> Baja/Modificacion de Productos </a> 
+                                </li> 
+                                
                                 <li> 
                                    <a href='ConfirmarCompra.jsp'> Confirmar Pedidos </a> 
                                 </li> 

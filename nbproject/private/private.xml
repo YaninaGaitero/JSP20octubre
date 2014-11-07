@@ -3,15 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/F:/facultad/JspCristecheGaitero/TP%20NEGRO%20avanzado%20fede/TP%20NEGRO/web/OpcionesPiqueo.jsp</file>
-            <file>file:/F:/facultad/JspCristecheGaitero/TP%20NEGRO%20avanzado%20fede/TP%20NEGRO/web/MenuAdmin.jsp</file>
-            <file>file:/F:/facultad/JspCristecheGaitero/TP%20NEGRO%20avanzado%20fede/TP%20NEGRO/web/LogueoSesion.jsp</file>
-            <file>file:/F:/facultad/JspCristecheGaitero/TP%20NEGRO%20avanzado%20fede/TP%20NEGRO/src/java/BD/DatosUsuario.java</file>
-            <file>file:/F:/facultad/JspCristecheGaitero/TP%20NEGRO%20avanzado%20fede/TP%20NEGRO/web/ConfirmarPiqueo.jsp</file>
-            <file>file:/F:/facultad/JspCristecheGaitero/TP%20NEGRO%20avanzado%20fede/TP%20NEGRO/web/opcCompras.jsp</file>
-            <file>file:/F:/facultad/JspCristecheGaitero/TP%20NEGRO%20avanzado%20fede/TP%20NEGRO/web/OrdenPiqueo.jsp</file>
-            <file>file:/F:/facultad/JspCristecheGaitero/TP%20NEGRO%20avanzado%20fede/TP%20NEGRO/web/ConfirmarCompra.jsp</file>
-            <file>file:/F:/facultad/JspCristecheGaitero/TP%20NEGRO%20avanzado%20fede/TP%20NEGRO/src/java/BD/DatosPiqueo.java</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/BD/DatosUsuario.java</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/web/Comprar.jsp</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/web/ConfirmarCompra.jsp</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/web/MenuAdmin.jsp</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/web/Menu.jsp</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/BD/DatosPiqueo.java</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/BD/DatosAdmin.java</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/Modelo/DetalleCompra.java</file>
         </group>
     </open-files>
 </project-private>
