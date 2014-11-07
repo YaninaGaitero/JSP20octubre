@@ -80,6 +80,10 @@
                                 </li> 
                                 
                                 <li> 
+                                   <a href='AltaProductos.jsp'> Alta de Productos </a> 
+                                </li> 
+                                
+                                <li> 
                                    <a href='BajaYModifProd.jsp'> Baja/Modificacion de Productos </a> 
                                 </li> 
                                 
