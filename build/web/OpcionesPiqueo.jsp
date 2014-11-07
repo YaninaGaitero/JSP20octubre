@@ -11,7 +11,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Opciones Piqueo</title>
     </head>
+
+
     <body>
-        <h1></h1>
+        <link rel="stylesheet" type="text/css" href="css/style.css">       
+        <br><a id="sub" name="sub" href='ConfirmarPiqueo.jsp'>Confirmar Piqueo</a> 
+        
+        <br>
+
+        <a href='SacarCarrito.jsp'>Sacar Piqueo</a>  
+
+        <form name ='formulario' action='OpcionesPiqueo.jsp'  method ='POST'>  
+            <td align=center><input type ='submit' name='boton' value= 'Seguir agregando al Piqueo..'/></td>  
     </body>
 </html>

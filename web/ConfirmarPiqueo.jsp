@@ -1,10 +1,11 @@
 <%-- 
-    Document   : OrdenPiqueo
-    Created on : 01-nov-2014, 17:13:01
-    Author     : Ezequiel
+    Document   : ConfirmarPiqueo
+    Created on : 06/11/2014, 18:42:03
+    Author     : Yanina
 --%>
 
-<%@page import="com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable"%>
+<%@page import="BD.DatosPiqueo"%>
+<%@page import="java.util.Hashtable"%>
 <%@page import="BD.DatosUsuario"%>
 <%@page import="Modelo.Usuario"%>
 <%@page import="Modelo.Compra"%>
@@ -36,18 +37,23 @@
         <%!
             Enumeration e;
             Compra aux;
-            DatosUsuario daoUser;
-            Hashtable tablaCompras;
+            DatosPiqueo Daopiqueo;
+            Enumeration e1;
+            DatosUsuario Daouser;
+            int i;
+            int  arreglo[];
+            int idPiqueo;
+                                            %>
 
+
+        <% aux = new Compra();
+            Daouser = new DatosUsuario();
+
+            Daopiqueo = new DatosPiqueo();
         %>
-        
-        
-        <% aux =  new Compra();
-        
-        tablaCompras = new Hashtable();%>
-        
-       
-        
+
+
+
 
         <jsp:setProperty name="cabecerapiqueo" property="idCompra" value="0" />
         <jsp:setProperty name="cabecerapiqueo" property="idUsuario" value="<%= aux.getIdUsuario()%>" />
@@ -62,13 +68,13 @@
     <body>
         <div class="container">
             <section id="content">
-                <form action="OrdenPiqueo.jsp" name="OrdenPiqueo" method="POST">
+                <form action="ConfirmarPiqueo.jsp" name="OrdenPiqueo" method="POST">
                     <div>
                         <center>
                             <table border="1" >
                                 <tr >
                                     <td >
-                                        IdPiqueo
+                                        IdCompra
                                     </td>
                                     <td>
                                         Fecha
@@ -80,27 +86,22 @@
 
                                 <%
 
-                                    daoUser = new DatosUsuario();
-                                    tablaCompras = daoUser.traerComprasPendientes();
-                                    e = tablaCompras.elements();
+                                    e = cabeceras.elements();
+                                    e1 = cabeceras.elements();
                                     while (e.hasMoreElements()) {
                                         aux = new Compra();
                                         aux = (Compra) e.nextElement();
-                                        if (cabeceras.get(aux.getIdCompra()) == null) {
-                                            out.println("<tr>"
-                                                    + "<td>" + aux.getIdCompra() + "</td>"
-                                                    + "<td>" + aux.getFecha() + "</td>"
-                                                    + "<td>"
-                                                    + "<input type ='submit' name='boton' value='" + aux.getIdCompra() + "'>"
-                                                    + "</td>"
-                                                    + "</tr>");
-                                        }
+
+                                        out.println("<tr>"
+                                                + "<td>" + aux.getIdCompra() + "</td>"
+                                                + "<td>" + aux.getFecha() + "</td>"
+                                                + "</tr>");
 
                                     }
 
                                 %>
                             </table>
-                            <input value="VOLVER" name ="DetallePiqueo" type="button" onclick= "location = 'MenuAdmin.jsp'">
+                            <input value="CONFIRMAR" name ="ConfirmaPiqueo" type="button">
                             </div>
                         </center>
                 </form><!-- form -->
@@ -109,17 +110,17 @@
     </body>
 </html>
 
-
-
-
-
 <%if (request.getMethod() == "POST") {
-
-        cabeceras.put(cabecerapiqueo.getIdCompra(), cabecerapiqueo);
-        response.sendRedirect("OpcionesPiqueo.jsp");
-
+    int i=0;
+        while (e1.hasMoreElements()) {
+            aux = (Compra) e1.nextElement();
+            if(i==0){
+                arreglo=Daopiqueo.agregarCompraTopiqueo(Daouser.TraerDetallesCliente(aux.getIdCompra()),-1);
+                idPiqueo= arreglo[1];
+            }else{
+                Daopiqueo.agregarCompraTopiqueo(Daouser.TraerDetallesCliente(aux.getIdCompra()),idPiqueo);
+            }
+            i++;
+        }
     }
-
 %>
-
-

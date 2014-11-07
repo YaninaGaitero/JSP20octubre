@@ -10,6 +10,7 @@ import Modelo.Compra;
 import Modelo.DetalleCompra;
 import Modelo.Piqueo;
 import Modelo.Producto;
+import Modelo.piqueoCabecera;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -32,7 +33,7 @@ public class DatosPiqueo extends BBDD{
         try {
             Conectar();
             int id = 0;
-            String sql = "select max(id) from piqueo";
+            String sql = "select max(id) from piqueoCabecera";
             PreparedStatement sent = CrearSentencia(sql);
             ResultSet rows = Consultar(sent);
             if (rows.next()) {
@@ -46,7 +47,7 @@ public class DatosPiqueo extends BBDD{
     }
         
         
-   private Piqueo getbyID(int idPiqueo, int idProducto) throws Exception {
+   private Piqueo getbyIDLineaPiqueo(int idPiqueo, int idProducto) throws Exception {
         try {
             Conectar();
             Piqueo piqueo = null;
@@ -56,9 +57,7 @@ public class DatosPiqueo extends BBDD{
             while (rows.next()) {
                 String descripcionProducto = rows.getString("descripcion");
                 int cantidad = rows.getInt("cantidad");
-                Date fecha = rows.getDate("fecha");
-                int estado = rows.getInt("estado");
-                piqueo = new Piqueo(idPiqueo, descripcionProducto, cantidad, fecha, estado,idProducto);
+                piqueo = new Piqueo(idPiqueo, descripcionProducto, cantidad, idProducto);
 
             }
 
@@ -67,7 +66,45 @@ public class DatosPiqueo extends BBDD{
             Desconectar();
         }
     }
-      public Hashtable traerPiqueo(int idPiqueo) throws Exception {
+    
+   private piqueoCabecera getbyIDcabPiqueo(int idPiqueo) throws Exception {
+        try {
+            Conectar();
+            piqueoCabecera piqueoCabecera = null;
+            String sql = "select * from piqueoCabecera where idPiqueo = " + idPiqueo ;
+            PreparedStatement sent = CrearSentencia(sql);
+            ResultSet rows = Consultar(sent);
+            while (rows.next()) {
+               int estado=rows.getInt("estado");
+               Date fecha=rows.getDate("fecha");
+               piqueoCabecera = new piqueoCabecera(idPiqueo, fecha,estado);
+            }
+            return piqueoCabecera;
+        } finally {
+            Desconectar();
+        }
+    }
+   
+   public Hashtable getCabecerasPiqueoByEstado(int estado)throws Exception{
+         try {
+            Conectar();
+            piqueoCabecera piqueoCabecera = null;
+            String sql = "select * from piqueoCabecera where estado = " + estado ;
+            PreparedStatement sent = CrearSentencia(sql);
+            ResultSet rows = Consultar(sent);
+            Hashtable listaCab= new  Hashtable();
+            while (rows.next()) {
+               int idPiqueo=rows.getInt("idPiqueo");
+               Date fecha=rows.getDate("fecha");
+               piqueoCabecera = new piqueoCabecera(idPiqueo, fecha,estado);
+               listaCab.put(idPiqueo, piqueoCabecera);
+            }
+            return listaCab;
+        } finally {
+            Desconectar();
+        }  
+   }
+      public Hashtable traerPiqueoDetalle(int idPiqueo) throws Exception {
         Hashtable listaPiqueo= new  Hashtable();
           try {
             Conectar();
@@ -78,10 +115,8 @@ public class DatosPiqueo extends BBDD{
             while (rows.next()) {
                 String descripcionProducto = rows.getString("descripcion");
                 int cantidad = rows.getInt("cantidad");
-                Date fecha = rows.getDate("fecha");
-                int estado = rows.getInt("estado");
                 int idProducto= rows.getInt("idProducto");
-                piqueo = new Piqueo(idPiqueo, descripcionProducto, cantidad, fecha, estado,idProducto);
+                piqueo = new Piqueo(idPiqueo, descripcionProducto, cantidad ,idProducto);
                 listaPiqueo.put(idProducto, piqueo);
             }
 
@@ -104,11 +139,9 @@ public class DatosPiqueo extends BBDD{
             while (rows.next()) {
                 String descripcionProducto = rows.getString("descripcion");
                 int cantidad = rows.getInt("cantidad");
-                Date fecha = rows.getDate("fecha");
-                int estado = rows.getInt("estado");
                 int idProducto= rows.getInt("idProducto");
                 int idPiqueo= rows.getInt("idPiqueo");
-                piqueo = new Piqueo(idPiqueo, descripcionProducto, cantidad, fecha, estado,idProducto);
+                piqueo = new Piqueo(idPiqueo, descripcionProducto, cantidad,idProducto);
                 listaPiqueo.put(i, piqueo);
                 i++;
             }
@@ -118,20 +151,28 @@ public class DatosPiqueo extends BBDD{
             Desconectar();
         }
     }
+
    
     
-    public int agregarCompraTopiqueo(Hashtable detalle) throws  Exception {
-// el metodo devuelve -1 si se ejecuto correctamente y el idCompra si la misma no pudo ser grabada
+    public int[] agregarCompraTopiqueo(Hashtable detalle, int grabaCab) throws  Exception {
         
+        /// recibe por parametro grabaCab -1 si es la primera vez
+// el metodo devuelve -1 si se ejecuto correctamente y (el idCompra si la misma no pudo ser grabada en 3ra posicion 1 si se grabo cabeceray 0 si la cabecera ya estaba grabada)
+        //2 posicion-1 si se ejecuto correctamente 
+        //              idCompra si hubo algun error /
+        //3posicion 1 si se grabo cabecera
+                    //0 si no se grabo cabecera
+        // 1 posicion idPiqueo
 	PreparedStatement preparedStatementModificaStock = null;        
 	PreparedStatement preparedStatementInsertaEnPqueo = null;
         PreparedStatement preparedStatementActualizarCompra=null;
-        PreparedStatement preparedStatementUpdatePiqueo=null;        
+        PreparedStatement preparedStatementUpdatePiqueo=null;   
+        PreparedStatement preparedStatementInsertaCabecera=null;
 
- 
+        String insertaCabecera="INSERT INTO PIQUEOCABECERA VALUES (?,?,?)";
 	String updatecompra = "UPDATE compra SET estado=? WHERE id=?";
 	String updateTableProductos = "UPDATE productos SET stock= stock - ? WHERE id= ?";
-        String insertarTablePiqueo= "INSERT INTO piqueo(idPiqueo, cantidad, fecha, estado, descripcion, idProducto) VALUES (?,?,?,?,?,?)";
+        String insertarTablePiqueo= "INSERT INTO piqueo(idPiqueo, cantidad, descripcion, idProducto) VALUES (?,?,?,?)";
         String updatePiqueo="UPDATE piqueo SET cantidad= cantidad + ? WHERE idProducto=? and idPiqueo = ?";
         
         int idCompra=0;
@@ -139,12 +180,29 @@ public class DatosPiqueo extends BBDD{
         String prodDescripcion;
         DatosUsuario dao=new DatosUsuario();
         DatosProductos daoProd= new DatosProductos();
-        int idPiqueo= maxIdPiqueo()+1;
+        int idPiqueo=0;
+        int[]rta= new int[3];
+        rta[1]=idPiqueo;
         
         
 	try {
             Conectar();
     	    conexion.setAutoCommit(false);
+            if(grabaCab==-1){
+                idPiqueo=maxIdPiqueo()+1;
+                preparedStatementInsertaCabecera= conexion.prepareStatement(insertaCabecera);
+                preparedStatementInsertaCabecera.setInt(1, idPiqueo);
+                preparedStatementInsertaCabecera.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
+                preparedStatementInsertaCabecera.setInt(3,1);
+                preparedStatementInsertaCabecera.executeUpdate();
+                rta[1]= idPiqueo;
+                rta[3]=1;
+            }
+            if(rta[1]==0){
+                rta[1]=grabaCab;
+                rta[3]=0;
+                idPiqueo= grabaCab;
+            }
             Enumeration i = detalle.elements();
             while (i.hasMoreElements()) {// MODIFICA EL STOCK 
                 auxdet = new DetalleCompra();
@@ -155,14 +213,12 @@ public class DatosPiqueo extends BBDD{
                 preparedStatementModificaStock.executeUpdate();
                 
                 prodDescripcion= daoProd.TraerNombreProducto(auxdet.getIdProd());
-                Piqueo p = getbyID(idPiqueo,auxdet.getIdProd());// verifica si existe una linea de piqueo con mismo cod de prod e idpPROD
+                Piqueo p = getbyIDLineaPiqueo(idPiqueo,auxdet.getIdProd());// verifica si existe una linea de piqueo con mismo cod de prod e idpPROD
                 if(p==null){
                 //GRABO PIQUEO YA Q NO EXISTE
                     preparedStatementInsertaEnPqueo= conexion.prepareStatement(insertarTablePiqueo);
                     preparedStatementInsertaEnPqueo.setInt(1,idPiqueo);
                     preparedStatementInsertaEnPqueo.setInt(2, auxdet.getCantidad());
-                    preparedStatementInsertaEnPqueo.setDate(3,new java.sql.Date(new java.util.Date().getTime()));
-                    preparedStatementInsertaEnPqueo.setInt(4, 1);
                     preparedStatementInsertaEnPqueo.setString(5, prodDescripcion);
                     preparedStatementInsertaEnPqueo.setInt(6, auxdet.getIdProd());
                     preparedStatementInsertaEnPqueo.executeUpdate();
@@ -184,7 +240,8 @@ public class DatosPiqueo extends BBDD{
             conexion.commit();
 	} catch (SQLException e) {
 		conexion.rollback();
-                return idCompra;
+                rta[2]=idCompra;
+                return rta;
 	} finally {
  		if (preparedStatementModificaStock != null) {
 			preparedStatementModificaStock.close();
@@ -198,18 +255,23 @@ public class DatosPiqueo extends BBDD{
                 if(preparedStatementUpdatePiqueo!=null){
                     preparedStatementUpdatePiqueo.close();
                 }
+                if(preparedStatementInsertaCabecera!=null){
+                    preparedStatementInsertaCabecera.close();
+                }
 		if (conexion != null) {
 			conexion.close();
 		}
+
  
-	}        
-        return -1;
+	} 
+        rta[2]=-1;
+        return rta;
     }
     
     public void cambiarEstadoApreparado(int idPiqueo) throws Exception{
          try {
             Conectar();
-            String sql = "update piqueo set estado = 2 where idPiqueo = " + idPiqueo;
+            String sql = "update piqueoCabecera set estado = 2 where idPiqueo = " + idPiqueo;
             PreparedStatement sent = CrearSentencia(sql);
             Actualizar(sent);
         } finally {

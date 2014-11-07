@@ -79,7 +79,7 @@
                                     <a href='OrdenPiqueo.jsp'>Ver Piqueo</a> 
                                 </li>                               
                                 <li> 
-                                    <a href='ConfirmarCompra.jsp'> Confirmar Pedidos </a> 
+                                   <a href='ConfirmarCompra.jsp'> Confirmar Pedidos </a> 
                                 </li> 
                                 <li> 
                                     <a href="index.jsp" rel="external" class="activated">Salir</a> 

@@ -18,19 +18,15 @@ public class Piqueo {
    //private Hashtable listaCompras;
    private String descripcionProducto;
    private int cantidad;
-   private Date fecha;
-   private int estado; //2 preparado 1 pendiente
    private int idProducto;
 
     
     public Piqueo(){}
     
-    public Piqueo(int idPiqueo, String descripcion, int cantidad, Date fecha, int estado,int idProducto){
+    public Piqueo(int idPiqueo, String descripcion, int cantidad,int idProducto){
         this.idPiqueo=idPiqueo;
         this.descripcionProducto=descripcion;
         this.cantidad=cantidad;
-        this.fecha=fecha;
-        this.estado=estado;
         this.idProducto=idProducto;
     
     
@@ -52,21 +48,7 @@ public class Piqueo {
         this.cantidad = cantidad;
     }
 
-    public Date getFecha() {
-        return fecha;
-    }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
-    }
 
     public String getDescripcionProducto() {
         return descripcionProducto;

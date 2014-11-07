@@ -11,6 +11,10 @@ import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Types;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -19,10 +23,44 @@ import java.sql.Types;
 public class DatosProductos extends BBDD{
     Producto producto= new Producto();
     
-    public DatosProductos()throws Exception{
-    
+    public DatosProductos()throws Exception
+    {
+        
     }
     
+    public Hashtable ListaProductos()
+    {
+        try 
+        {
+            Hashtable lista = new Hashtable();
+            Conectar();
+            String sql = "select * from productos";
+            PreparedStatement sentencia;
+            sentencia = CrearSentencia(sql);
+            ResultSet rows = Consultar(sentencia);
+            while (rows.next())
+            {
+                Producto add = new Producto(rows.getInt("id"),
+                                            rows.getString("nombre"),
+                                            rows.getString("descripcion"),
+                                            rows.getInt("stock"),
+                                            rows.getFloat("precio"),
+                                            rows.getInt("estado"));
+                lista.put(add.getId(), add);
+            }
+            return lista;
+        } 
+        catch (Exception ex) 
+        {
+            Logger.getLogger(DatosProductos.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        finally
+        {
+            Desconectar();
+        }
+        
+    }
 
         public String TraerNombreProducto(int id) throws Exception {
         try {
