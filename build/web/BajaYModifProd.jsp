@@ -81,7 +81,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Baja y Modificacion de Productos</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <script type="text/javascript">
             function Validar()
@@ -115,6 +115,8 @@
         </script>
     </head>
     <body>
+        <a href='MenuAdmin.jsp' >Volver al Menu</a>
+        <br>
         <h1>Baja y Modificacion de Productos</h1>
         <br>
         <table border="1">
@@ -176,16 +178,19 @@
             </select>
             <br>
             <br>
-            Nombre: <input type="text" id="nombre" name="nombre"><br>
-            Descripcion: <input type="text" id="descripcion" name="descripcion"><br>
-            Stock: <input type="text" id="stock" name="stock"><br>
-            Precio: <input type="text" id="precio" name="precio"><br>
-            Cambiar Estado: 
-            <select size='1' id='estado' name='estado'>
+            <table>
+                <tr><td>Nombre:</td><td><input type="text" id="nombre" name="nombre"></td></tr>
+                <tr><td>Descripcion:</td><td><input type="text" id="descripcion" name="descripcion"></td></tr>
+                <tr><td>Stock:</td><td><input type="text" id="stock" name="stock"></td></tr>
+                <tr><td>Precio:</td><td><input type="text" id="precio" name="precio"></td></tr>
+                <tr><td>Cambiar Estado: </td><td><select size='1' id='estado' name='estado'>
                 <option value='5'>Elige un estado</option>
                 <option value='1'>De Alta</option>
                 <option value='0'>De Baja</option>
-            </select><br><br>
+            </select></td></tr>
+            </table>
+             <br>
+             <br>
             <input type='button' value="Modificar" onclick='javascript:Validar()'>            
         </form>
     </body>

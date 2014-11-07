@@ -83,7 +83,8 @@ public class DatosProductos extends BBDD{
         try {
             Conectar();
 
-            String sql = "INSERT INTO productos(id, nombre, descripcion, estado, stock, precio) VALUES (0,'"+ p.getNombre() + "','" + p.getDescripcion()+  "',"+p.getEstado()+","+p.getStock()+","+p.getPrecio()+")";
+            String sql = "INSERT INTO productos( nombre, descripcion, estado, stock, precio) VALUES ('"+ p.getNombre() + "','" + p.getDescripcion()+  "',"+p.getEstado()+","+p.getStock()+","+p.getPrecio()+")";
+            //String sql = "INSERT INTO productos(id, nombre, descripcion, estado, stock, precio) VALUES (0,'"+ p.getNombre() + "','" + p.getDescripcion()+  "',"+p.getEstado()+","+p.getStock()+","+p.getPrecio()+")";
             PreparedStatement sent = CrearSentencia(sql);
             Actualizar(sent);
 
