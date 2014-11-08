@@ -4,7 +4,7 @@
     Author     : Ezequiel
 --%>
 
-<%@page import="com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable"%>
+<%@page import="java.util.Hashtable"%>
 <%@page import="BD.DatosUsuario"%>
 <%@page import="Modelo.Usuario"%>
 <%@page import="Modelo.Compra"%>

@@ -3,9 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/usuario/Desktop/Bruno/Facultad/JSP20octubre/web/BajaYModifProd.jsp</file>
-            <file>file:/C:/Users/usuario/Desktop/Bruno/Facultad/JSP20octubre/web/AltaProductos.jsp</file>
-            <file>file:/C:/Users/usuario/Desktop/Bruno/Facultad/JSP20octubre/src/java/BD/DatosProductos.java</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/Modelo/DetalleCompra.java</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/web/Menu.jsp</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/BD/DatosUsuario.java</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/web/BajaYModifProd.jsp</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/BD/DatosPiqueo.java</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/src/java/BD/DatosAdmin.java</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/web/ConfirmarCompra.jsp</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/web/Comprar.jsp</file>
+            <file>file:/C:/Users/Ezequiel/Documents/GitHub/JSP20octubre/web/MenuAdmin.jsp</file>
         </group>
     </open-files>
 </project-private>
