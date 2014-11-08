@@ -299,6 +299,28 @@ public class DatosUsuario extends BBDD {
         }
 
     }
+     public Compra traerCompraBYid (int id) throws Exception{
+        try {
+            Conectar();
+            String sql = "SELECT * FROM compra   where id = "+ id;
+            PreparedStatement sent = CrearSentencia(sql);
+            ResultSet rows = Consultar(sent);
+            Compra aux;
+            aux = new Compra();
+            while (rows.next()) {
+                int idCompra = rows.getInt("id");
+                int iduser = rows.getInt("idUsuario");
+                Date fe = rows.getDate("fecha");
+                int estado = rows.getInt("estado");
+                aux = new Compra(idCompra,iduser, fe, estado);
+            }
+            return aux;
+        } finally {
+            Desconectar();
+        }
+
+    }
+   
     /*public Hashtable TraerDetallesPendientes() throws Exception {
         try {
             Conectar();

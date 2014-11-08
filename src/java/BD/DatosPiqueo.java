@@ -33,11 +33,11 @@ public class DatosPiqueo extends BBDD{
         try {
             Conectar();
             int id = 0;
-            String sql = "select max(id) from piqueoCabecera";
+            String sql = "select max(idPiqueo) from piqueoCabecera";
             PreparedStatement sent = CrearSentencia(sql);
             ResultSet rows = Consultar(sent);
             if (rows.next()) {
-                id = rows.getInt("max(id)");
+                id = rows.getInt("max(idPiqueo)");
             }
             return id;
 
@@ -186,10 +186,10 @@ public class DatosPiqueo extends BBDD{
         
         
 	try {
-            Conectar();
-    	    conexion.setAutoCommit(false);
             if(grabaCab==-1){
-                idPiqueo=maxIdPiqueo()+1;
+                idPiqueo=maxIdPiqueo()+1;      
+                Conectar();
+                conexion.setAutoCommit(false);
                 preparedStatementInsertaCabecera= conexion.prepareStatement(insertaCabecera);
                 preparedStatementInsertaCabecera.setInt(1, idPiqueo);
                 preparedStatementInsertaCabecera.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
@@ -224,6 +224,7 @@ public class DatosPiqueo extends BBDD{
                     preparedStatementInsertaEnPqueo.executeUpdate();
                 
                 }else{
+                    preparedStatementUpdatePiqueo= conexion.prepareStatement(updatePiqueo);
                     preparedStatementUpdatePiqueo.setInt(1, auxdet.getCantidad());
                     preparedStatementUpdatePiqueo.setInt(2, auxdet.getIdProd());
                     preparedStatementUpdatePiqueo.setInt(3, idPiqueo);

@@ -25,15 +25,26 @@
                 }
                 ;
             }
-            var Menu = "MenuAdmin.jsp"
+            var Menu = "MenuAdmin.jsp";
             function redireccionar()
             {
-                location.href = Menu
+                location.href = Menu;
             }
         </script>
         <jsp:useBean id="cabeceras" class="java.util.Hashtable" scope="session" />
         <jsp:useBean id="cabecerapiqueo" class="Modelo.Compra" scope="request" />
 
+
+
+
+
+
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="utf-8">
+        <title>FERRETERIA ANTUNEZ</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    
         <%!
             Enumeration e;
             Compra aux;
@@ -41,30 +52,22 @@
             Enumeration e1;
             DatosUsuario Daouser;
             int i;
-            int  arreglo[];
+            int arreglo[];
             int idPiqueo;
-                                            %>
+         %>
 
 
         <% aux = new Compra();
             Daouser = new DatosUsuario();
 
             Daopiqueo = new DatosPiqueo();
+            i = 0;
         %>
-
-
-
-
         <jsp:setProperty name="cabecerapiqueo" property="idCompra" value="0" />
         <jsp:setProperty name="cabecerapiqueo" property="idUsuario" value="<%= aux.getIdUsuario()%>" />
         <jsp:setProperty name="cabecerapiqueo" property="fecha" value="<%= aux.getFecha()%>" />
         <jsp:setProperty name="cabecerapiqueo" property="estado" value="<%= aux.getEstado()%>" />
 
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <meta charset="utf-8">
-        <title>FERRETERIA ANTUNEZ</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-    </head>
     <body>
         <div class="container">
             <section id="content">
@@ -101,9 +104,10 @@
 
                                 %>
                             </table>
-                            <input value="CONFIRMAR" name ="ConfirmaPiqueo" type="button">
-                            </div>
+                            <input value="CONFIRMAR" name ="ConfirmaPiqueo" type="submit">
                         </center>
+                    </div>
+
                 </form><!-- form -->
             </section><!-- content -->
         </div><!-- container -->
@@ -111,14 +115,14 @@
 </html>
 
 <%if (request.getMethod() == "POST") {
-    int i=0;
+        
         while (e1.hasMoreElements()) {
             aux = (Compra) e1.nextElement();
-            if(i==0){
-                arreglo=Daopiqueo.agregarCompraTopiqueo(Daouser.TraerDetallesCliente(aux.getIdCompra()),-1);
-                idPiqueo= arreglo[1];
-            }else{
-                Daopiqueo.agregarCompraTopiqueo(Daouser.TraerDetallesCliente(aux.getIdCompra()),idPiqueo);
+            if (i == 0) {
+                arreglo = Daopiqueo.agregarCompraTopiqueo(Daouser.TraerDetallesCliente(aux.getIdCompra()), -1);
+                idPiqueo = arreglo[1];
+            } else {
+                Daopiqueo.agregarCompraTopiqueo(Daouser.TraerDetallesCliente(aux.getIdCompra()), idPiqueo);
             }
             i++;
         }

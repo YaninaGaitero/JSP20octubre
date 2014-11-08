@@ -49,10 +49,6 @@
        
         
 
-        <jsp:setProperty name="cabecerapiqueo" property="idCompra" value="0" />
-        <jsp:setProperty name="cabecerapiqueo" property="idUsuario" value="<%= aux.getIdUsuario()%>" />
-        <jsp:setProperty name="cabecerapiqueo" property="fecha" value="<%= aux.getFecha()%>" />
-        <jsp:setProperty name="cabecerapiqueo" property="estado" value="<%= aux.getEstado()%>" />
 
         <meta http-equiv="content-type" content="text/html; charset=UTF-8">
         <meta charset="utf-8">
@@ -101,8 +97,9 @@
                                 %>
                             </table>
                             <input value="VOLVER" name ="DetallePiqueo" type="button" onclick= "location = 'MenuAdmin.jsp'">
-                            </div>
+                            
                         </center>
+                            </div>
                 </form><!-- form -->
             </section><!-- content -->
         </div><!-- container -->
@@ -110,11 +107,28 @@
 </html>
 
 
+<%!
+            Compra compraSeleccionada;
+            String idParameter="";
+            
 
+%>
 
 
 <%if (request.getMethod() == "POST") {
+    idParameter= request.getParameter("boton");
+    compraSeleccionada= daoUser.traerCompraBYid(Integer.parseInt(idParameter));
 
+%>
+
+        <jsp:setProperty name="cabecerapiqueo" property="idCompra" value="0" />
+        <jsp:setProperty name="cabecerapiqueo" property="idUsuario" value="<%= compraSeleccionada.getIdUsuario()%>" />
+        <jsp:setProperty name="cabecerapiqueo" property="fecha" value="<%= compraSeleccionada.getFecha()%>" />
+        <jsp:setProperty name="cabecerapiqueo" property="estado" value="<%= compraSeleccionada.getEstado()%>" />
+
+
+        
+<%
         cabeceras.put(cabecerapiqueo.getIdCompra(), cabecerapiqueo);
         response.sendRedirect("OpcionesPiqueo.jsp");
 
