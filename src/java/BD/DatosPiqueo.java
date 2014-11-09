@@ -49,7 +49,7 @@ public class DatosPiqueo extends BBDD{
         
    private Piqueo getbyIDLineaPiqueo(int idPiqueo, int idProducto) throws Exception {
         try {
-            Conectar();
+            
             Piqueo piqueo = null;
             String sql = "select * from piqueo where idPiqueo = " + idPiqueo + " and idProducto ="+ idProducto;
             PreparedStatement sent = CrearSentencia(sql);
@@ -63,7 +63,6 @@ public class DatosPiqueo extends BBDD{
 
             return piqueo;
         } finally {
-            Desconectar();
         }
     }
     
@@ -154,7 +153,7 @@ public class DatosPiqueo extends BBDD{
 
    
     
-    public int[] agregarCompraTopiqueo(Hashtable detalle, int grabaCab) throws  Exception {
+    public int agregarCompraTopiqueo(Hashtable detalle, int grabaCab) throws  Exception {
         
         /// recibe por parametro grabaCab -1 si es la primera vez
 // el metodo devuelve -1 si se ejecuto correctamente y (el idCompra si la misma no pudo ser grabada en 3ra posicion 1 si se grabo cabeceray 0 si la cabecera ya estaba grabada)
@@ -181,27 +180,23 @@ public class DatosPiqueo extends BBDD{
         DatosUsuario dao=new DatosUsuario();
         DatosProductos daoProd= new DatosProductos();
         int idPiqueo=0;
-        int[]rta= new int[3];
-        rta[1]=idPiqueo;
-        
+        int rta=0;
+        idPiqueo=maxIdPiqueo()+1;      
         
 	try {
+            Conectar();
+            conexion.setAutoCommit(false);
             if(grabaCab==-1){
-                idPiqueo=maxIdPiqueo()+1;      
-                Conectar();
-                conexion.setAutoCommit(false);
+
                 preparedStatementInsertaCabecera= conexion.prepareStatement(insertaCabecera);
                 preparedStatementInsertaCabecera.setInt(1, idPiqueo);
                 preparedStatementInsertaCabecera.setDate(2, new java.sql.Date(new java.util.Date().getTime()));
                 preparedStatementInsertaCabecera.setInt(3,1);
                 preparedStatementInsertaCabecera.executeUpdate();
-                rta[1]= idPiqueo;
-                rta[3]=1;
+                rta= idPiqueo;
             }
-            if(rta[1]==0){
-                rta[1]=grabaCab;
-                rta[3]=0;
-                idPiqueo= grabaCab;
+            if(rta==0){;
+                rta=grabaCab;
             }
             Enumeration i = detalle.elements();
             while (i.hasMoreElements()) {// MODIFICA EL STOCK 
@@ -212,15 +207,15 @@ public class DatosPiqueo extends BBDD{
                 preparedStatementModificaStock.setInt(2, auxdet.getIdProd());
                 preparedStatementModificaStock.executeUpdate();
                 
-                prodDescripcion= daoProd.TraerNombreProducto(auxdet.getIdProd());
+                prodDescripcion= daoProd.TraerNombreProducto1(auxdet.getIdProd());
                 Piqueo p = getbyIDLineaPiqueo(idPiqueo,auxdet.getIdProd());// verifica si existe una linea de piqueo con mismo cod de prod e idpPROD
                 if(p==null){
                 //GRABO PIQUEO YA Q NO EXISTE
                     preparedStatementInsertaEnPqueo= conexion.prepareStatement(insertarTablePiqueo);
                     preparedStatementInsertaEnPqueo.setInt(1,idPiqueo);
                     preparedStatementInsertaEnPqueo.setInt(2, auxdet.getCantidad());
-                    preparedStatementInsertaEnPqueo.setString(5, prodDescripcion);
-                    preparedStatementInsertaEnPqueo.setInt(6, auxdet.getIdProd());
+                    preparedStatementInsertaEnPqueo.setString(3, prodDescripcion);
+                    preparedStatementInsertaEnPqueo.setInt(4, auxdet.getIdProd());
                     preparedStatementInsertaEnPqueo.executeUpdate();
                 
                 }else{
@@ -239,9 +234,9 @@ public class DatosPiqueo extends BBDD{
             preparedStatementActualizarCompra.setInt(2, idCompra);
 	    preparedStatementActualizarCompra.executeUpdate();         
             conexion.commit();
-	} catch (SQLException e) {
+	} catch (Exception e) {
 		conexion.rollback();
-                rta[2]=idCompra;
+                rta=-1;
                 return rta;
 	} finally {
  		if (preparedStatementModificaStock != null) {
@@ -265,7 +260,6 @@ public class DatosPiqueo extends BBDD{
 
  
 	} 
-        rta[2]=-1;
         return rta;
     }
     

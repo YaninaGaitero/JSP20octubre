@@ -113,7 +113,7 @@
             
 
 %>
-
+ 
 
 <%if (request.getMethod() == "POST") {
     idParameter= request.getParameter("boton");
@@ -121,7 +121,7 @@
 
 %>
 
-        <jsp:setProperty name="cabecerapiqueo" property="idCompra" value="0" />
+        <jsp:setProperty name="cabecerapiqueo" property="idCompra" value="<%= Integer.parseInt(idParameter)%>" />
         <jsp:setProperty name="cabecerapiqueo" property="idUsuario" value="<%= compraSeleccionada.getIdUsuario()%>" />
         <jsp:setProperty name="cabecerapiqueo" property="fecha" value="<%= compraSeleccionada.getFecha()%>" />
         <jsp:setProperty name="cabecerapiqueo" property="estado" value="<%= compraSeleccionada.getEstado()%>" />

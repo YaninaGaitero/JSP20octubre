@@ -52,7 +52,6 @@
             Enumeration e1;
             DatosUsuario Daouser;
             int i;
-            int arreglo[];
             int idPiqueo;
          %>
 
@@ -63,7 +62,7 @@
             Daopiqueo = new DatosPiqueo();
             i = 0;
         %>
-        <jsp:setProperty name="cabecerapiqueo" property="idCompra" value="0" />
+        <jsp:setProperty name="cabecerapiqueo" property="idCompra" value="<%=aux.getIdCompra()%>" />
         <jsp:setProperty name="cabecerapiqueo" property="idUsuario" value="<%= aux.getIdUsuario()%>" />
         <jsp:setProperty name="cabecerapiqueo" property="fecha" value="<%= aux.getFecha()%>" />
         <jsp:setProperty name="cabecerapiqueo" property="estado" value="<%= aux.getEstado()%>" />
@@ -119,10 +118,13 @@
         while (e1.hasMoreElements()) {
             aux = (Compra) e1.nextElement();
             if (i == 0) {
-                arreglo = Daopiqueo.agregarCompraTopiqueo(Daouser.TraerDetallesCliente(aux.getIdCompra()), -1);
-                idPiqueo = arreglo[1];
+                idPiqueo = Daopiqueo.agregarCompraTopiqueo(Daouser.TraerDetallesCliente(aux.getIdCompra()), -1);
             } else {
-                Daopiqueo.agregarCompraTopiqueo(Daouser.TraerDetallesCliente(aux.getIdCompra()), idPiqueo);
+                idPiqueo=Daopiqueo.agregarCompraTopiqueo(Daouser.TraerDetallesCliente(aux.getIdCompra()), idPiqueo);
+            }
+            if(idPiqueo==-1){
+                System.out.println("NO hay stock de la compra "+ aux.getIdCompra());
+                        
             }
             i++;
         }

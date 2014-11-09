@@ -79,6 +79,21 @@ public class DatosProductos extends BBDD{
         }
 
     }
+    public String TraerNombreProducto1(int id) throws Exception {
+        try {
+            String nombre = null;
+            String sql = "select nombre from productos where id = '" + id + "'";
+            PreparedStatement sent = CrearSentencia(sql);
+            ResultSet rows = Consultar(sent);
+            if (rows.next()) {
+                nombre = rows.getString("nombre");
+            }
+            return nombre;
+
+        } finally {
+        }
+
+    }
     public void altaProducto(Producto p) throws Exception {
         try {
             Conectar();
