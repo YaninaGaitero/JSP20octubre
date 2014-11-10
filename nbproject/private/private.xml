@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Yanina/Documents/GitHub/JSP20octubre/src/java/BD/BBDD.java</file>
-            <file>file:/C:/Users/Yanina/Documents/GitHub/JSP20octubre/src/java/BD/DatosPiqueo.java</file>
-            <file>file:/C:/Users/Yanina/Documents/GitHub/JSP20octubre/web/OrdenPiqueo.jsp</file>
-            <file>file:/C:/Users/Yanina/Documents/GitHub/JSP20octubre/web/ConfirmarPiqueo.jsp</file>
+            <file>file:/C:/Users/usuario/Desktop/Bruno/Facultad/JSP20octubre/web/ConfirmarCompra.jsp</file>
+            <file>file:/C:/Users/usuario/Desktop/Bruno/Facultad/JSP20octubre/src/java/BD/DatosUsuario.java</file>
+            <file>file:/C:/Users/usuario/Desktop/Bruno/Facultad/JSP20octubre/web/Menu.jsp</file>
+            <file>file:/C:/Users/usuario/Desktop/Bruno/Facultad/JSP20octubre/web/ConfirmarPiqueo.jsp</file>
+            <file>file:/C:/Users/usuario/Desktop/Bruno/Facultad/JSP20octubre/web/VerHistorialMio.jsp</file>
+            <file>file:/C:/Users/usuario/Desktop/Bruno/Facultad/JSP20octubre/web/Comprar.jsp</file>
         </group>
     </open-files>
 </project-private>

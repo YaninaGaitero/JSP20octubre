@@ -1,4 +1,4 @@
--- phpMyAdmin SQL Dump
+﻿-- phpMyAdmin SQL Dump
 -- version 3.5.2.2
 -- http://www.phpmyadmin.net
 --
@@ -6,6 +6,13 @@
 -- Tiempo de generación: 07-11-2014 a las 00:03:30
 -- Versión del servidor: 5.5.27
 -- Versión de PHP: 5.4.7
+
+drop database if exists lab;
+
+create database lab;
+
+use lab;
+
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -24,7 +31,7 @@ DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarFacturaID`(OUT `lastID` INT, IN `fec` DATETIME, IN `usuario` INT, IN EST int)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsertarFacturaID`(OUT `lastID` INT, IN `fec` DATETIME, IN `usuario` INT, IN `est` int)
 begin
 	
 insert into compra (fecha,idUsuario,estado)

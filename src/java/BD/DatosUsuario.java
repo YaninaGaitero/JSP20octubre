@@ -170,9 +170,10 @@ public class DatosUsuario extends BBDD {
             Conectar();
             procedimiento = getConexion().prepareCall("{call InsertarFacturaID( ? , ? , ?,? )}");
             procedimiento.registerOutParameter("lastID", Types.INTEGER);
-            procedimiento.setDate("fec", new java.sql.Date(new java.util.Date().getTime()));
+            java.util.Date now = new java.util.Date();
+            procedimiento.setDate("fec", new java.sql.Date(now.getTime()));
             procedimiento.setInt("usuario", idUsuario);
-            procedimiento.setInt("EST", 1);
+            procedimiento.setInt("est", 1);
             procedimiento.execute();
             ultimaFactura = procedimiento.getInt("lastID");
             procedimiento.close();

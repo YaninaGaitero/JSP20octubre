@@ -10,7 +10,7 @@
 <%@page import="Modelo.DetalleCompra"%>
 <%@page import="Modelo.DetalleCompra"%>
 <%@page import="java.util.Enumeration"%>
-<%@page import="com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable"%>
+<%@page import="java.util.Hashtable"%>
 <%@page import="Modelo.Usuario"%>
 <%@page import="BD.DatosUsuario"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -20,7 +20,20 @@
 <html>
     <%!
     DatosUsuario User;
-  
+    public void jspInit()
+    {
+        try {
+            User = new DatosUsuario();
+        }
+        catch (Exception E)
+        {
+            System.out.println(E.getMessage());
+        }
+    }
+    public void jspDestroy()
+    {
+        User.Desconectar();
+    }
     %>
         <jsp:useBean id="detalles" class="java.util.Hashtable" scope="session" />
         <jsp:useBean id="usuario" class="Modelo.Usuario" scope="session"/>
@@ -42,6 +55,7 @@
             function mensaje()
             {
                  alert('Su pedido ha sido enviado');
+                 document.location.href='Menu.jsp';
             }
 
 
@@ -74,7 +88,7 @@
                  
                 <%
                     
-                    User = new DatosUsuario();
+                    
                     prod = new Producto();
                     e = detalles.elements();
                     //TablaDetalles = (Hashtable)session.getAttribute("DetallesCompra");
@@ -108,6 +122,7 @@
   %>
         <%
             if (request.getMethod() == "POST") {
+               
                idCompra= User.GrabarCompra(usuario.getId());
                e1=detalles.elements();
                while (e1.hasMoreElements()){

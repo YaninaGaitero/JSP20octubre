@@ -3,7 +3,7 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="BD.DatosUsuario"%>
 <%@page import="Modelo.Usuario"%>
-<%@page import="com.sun.org.apache.xalan.internal.xsltc.runtime.Hashtable"%>
+<%@page import="java.util.Hashtable"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%! DatosUsuario User;

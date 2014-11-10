@@ -9,10 +9,25 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="Modelo.Usuario"%>
-<%@page import="BD.DatosUsuario"%>
+<%@page import="BD.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<%!DatosUsuario User;%>
+<%!
+DatosUsuario User;
+DatosProductos ConexionProductos;
+
+public void jspInit()
+{
+    try {
+        User = new DatosUsuario();
+        ConexionProductos = new DatosProductos();
+    }
+    catch (Exception E)
+    {
+        System.out.println(E.getMessage());
+    }
+}
+%>
 
 <%
     session = request.getSession(true);
@@ -258,7 +273,7 @@
                         out.println("<tr>"
                                 + "<td>" + auxdet.getIdDetalle() + "</td>"
                                 + "<td>" + auxdet.getIdCompra() + "</td>"
-                                + "<td>" + User.TraerNombreProducto(auxdet.getIdProd()) + "</td>"
+                                + "<td>" + ConexionProductos.TraerNombreProducto(auxdet.getIdProd()) + "</td>"
                                 + "<td>" + auxdet.getCantidad() + "</td>"
                                 + "<td>" + auxdet.getPrecio() + "</td>"
                                 + "</tr>");
